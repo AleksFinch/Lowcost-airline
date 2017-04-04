@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true" path="/" debug="1" reloadable="true">
+    <Resource
+            name="jdbc/lowcost"
+            author="Container"
+            type="javax.sql.DataSource"
+            maxActive="10"
+            maxIdle="5"
+            maxWait="10000"
+            username="finair"
+            password="finair18"
+            driverClassName="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/lowcost?characterEncoding=utf-8"
+    />
+</Context>

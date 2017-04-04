@@ -1,0 +1,21 @@
+.secPlaceButton {
+    margin-right: 4.2%;
+    width: 7%;
+    max-width: 7%;
+    padding: 1.2%;
+
+}
+
+.firPlaceButton {
+    margin-right: 5%;
+    width: 40%;
+    max-width: 40%;
+    padding: 10%
+
+}
+
+.secPlaceDiv {
+    position: absolute;
+
+    width: 40%;
+}
