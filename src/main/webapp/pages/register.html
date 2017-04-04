@@ -2,10 +2,106 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>myServlet</title>
+    <title>Registration</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/resources/css/styles.css">
 </head>
 <body>
-please, sign up
 
+    <div style="clear: both">
+        <img src="/resources/images/myLogo.png" width="100%"/>
+    </div>
+    <div class="container col-md-8">
+        <div class="panel panel-primary col-md-offset-2 ">
+            <div class="panel-heading ">
+                <h4>Sign in</h4>
+            </div>
+            <c:if test="${param['error_email']}">
+                <div class="container">
+                    <div class=" container alert alert-danger col-md-offset-2 col-md-5 ">
+
+                        E-mail have already used! Please, try again
+
+                    </div>
+                </div>
+            </c:if>
+            <c:if test="${param['error']}">
+                <div class="container">
+                    <div class=" container alert alert-danger col-md-offset-2 col-md-5 ">
+
+                        Oups, something wrong!
+
+                    </div>
+                </div>
+            </c:if>
+            <div class="panel-body">
+                <form method="post"
+                      action="/register"
+                        name="loginForm"
+                        class="form-horizontal container">
+
+                    <div class="form-group ">
+                        <label id="firstNameLabel" for="first_name"
+                                       class="control-label col-md-2">
+                            First name:
+                        </label>
+                        <div class="col-md-4">
+                            <input type="text" placeholder="First name" name="firstname" class="form-control col-md-4" id="first_name"
+                                         autocomplete="off"/>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label id="lastNameLabel" for="last_name"
+                               class="control-label col-md-2">
+                            Last name:
+                        </label>
+                        <div class="col-md-4">
+                            <input type="text" placeholder="Last name" name="lastname" class="form-control col-md-4" id="last_name"
+                                   autocomplete="off"/>
+                        </div>
+                          
+                    </div>
+                    <div class="form-group ">
+                        <label id="userNameLabel" for="j_username"
+                               class="control-label col-md-2">
+                            E-mail:
+                        </label>
+                        <div class="col-md-4">
+                            <input type="email" placeholder="E-mail" name="e_mail" class="form-control col-md-4" id="j_username"
+                                   autocomplete="on"/>
+                        </div>
+                        
+                    </div>
+                    <div class="form-group">
+                        <label id="passwordLabel" for="j_password"
+                               class="control-label col-md-2">
+                            Password:
+                        </label>
+                        <div class="col-md-4">
+                            <input type="password" placeholder="Password" name="password" class="form-control col-md-4" id="j_password"
+                                   autocomplete="off"/>
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-offset-2 col-md-1">
+                        <input   type = "submit"  class="btn btn-primary btn-block" value="Sign Up"
+                                         id="signUnButton"/>
+                    </div>
+                    <div >
+                        <ul class="nav col-md-1">
+                            <li class = "active">
+                                <a href="login.html"
+                                   id="signInButton">
+                                    Log In
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

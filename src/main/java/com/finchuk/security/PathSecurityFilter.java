@@ -49,7 +49,7 @@ public class PathSecurityFilter implements Filter {
             }else{
                 ((HttpServletResponse) servletResponse).
                         sendError(HttpServletResponse.SC_FORBIDDEN);
-                throw new AccessDeniedException("you haven't access!");
+                return;
             }
         }
         filterChain.doFilter(httpServletRequest,servletResponse);

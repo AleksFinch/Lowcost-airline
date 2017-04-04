@@ -3,6 +3,7 @@ package com.finchuk.app;
 import com.finchuk.controller.LoginController;
 import com.finchuk.controller.RandomHotTicketController;
 import com.finchuk.controller.RedirectController;
+import com.finchuk.controller.RegisterController;
 import com.finchuk.dao.jdbc.ConnectionManager;
 import com.finchuk.dispatcher.MainServletDispatcher;
 import com.finchuk.dispatcher.MainServletDispatcherBuilder;
@@ -42,6 +43,7 @@ public class AppTuner {
         .addPathMap("/", new RedirectController("/index"))
                 .addPathMap("/index", new RandomHotTicketController())
                 .addPathMap("/login", new LoginController())
+                .addPathMap("/register", new RegisterController())
                 .buildAndRegister("Controller Dispatcher Servlet", "/app/*");
     }
 }
