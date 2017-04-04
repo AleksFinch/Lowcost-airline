@@ -14,6 +14,7 @@ public class LoginController extends Controller {
     public void post(RequestService reqService) {
         String username = reqService.getString("username");
         String password = reqService.getString("password");
+        //TODO: validate
         String destination = reqService.getRequest().getHeader("Referer");
 
         if (authService.login(reqService.getRequest(), username, password)) {

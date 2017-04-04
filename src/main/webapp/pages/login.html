@@ -15,7 +15,64 @@
     </div>
 
 
+    <c:if test="${!param['error_login']}">
+        <div style="margin: 60px;"/>
+    </c:if>
+    <div class="container col-md-8">
+        <div class="panel panel-primary col-md-offset-2 ">
+            <div class="panel-heading ">
+                <h4>Please, log in</h4>
+            </div>
+            <div class="panel-body">
+                <c:if test="${param['error_login']}">
+                    <div class="container">
+                        <div class=" container alert alert-danger col-md-offset-2 col-md-5 ">
 
+                            Wrong E-mail\Password! Please, try again
+
+                        </div>
+                    </div>
+                </c:if>
+                <form method="post"
+                      action="/login"
+                      name="loginForm"
+                      class="form-horizontal container">
+
+                    <div class="form-group ">
+                        <label id="userNameLabel" for="j_username"
+                                       class="control-label col-md-2" >
+                            Username:
+                        </label>
+                        <div class="col-md-4">
+                            <input type="email" placeholder="E-mail" class="form-control col-md-4" id="j_username"
+                                         name="username" autocomplete="on"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label id="passwordLabel" for="j_password"
+                               class="control-label col-md-2" >
+                            Password:
+                        </label>
+                        <div class="col-md-4">
+                            <input type="password" placeholder="Password" class="form-control col-md-4" id="j_password"
+                                   name="password" autocomplete="off"/>
+                        </div>
+                    </div>
+                    <div class="col-md-offset-2 col-md-1">
+                        <input type ="submit" class="btn btn-primary btn-block" id="loginButton" value="Log In"/>
+                    </div>
+
+                    <div >
+                        <ul class="nav col-md-1">
+                            <li class = "active">
+                                <a href="/register"
+                                   id="signUpButton">
+                                    Sign Up
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
 
 
             </div>
