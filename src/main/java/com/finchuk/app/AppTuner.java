@@ -4,6 +4,7 @@ import com.finchuk.controller.LoginController;
 import com.finchuk.controller.RandomHotTicketController;
 import com.finchuk.controller.RedirectController;
 import com.finchuk.controller.RegisterController;
+import com.finchuk.controller.admin.AirportsManagmentController;
 import com.finchuk.dao.jdbc.ConnectionManager;
 import com.finchuk.dispatcher.MainServletDispatcher;
 import com.finchuk.dispatcher.MainServletDispatcherBuilder;
@@ -33,8 +34,8 @@ public class AppTuner {
 
     private void initSecurity(){
         SecurityContainer container = SecurityContainer.getInstance();
-        container.addConstraint("(/app)?/app/admin/.*", Role.ADMIN);
-        container.addConstraint("(/app)?/user/.*", Role.ADMIN,Role.USER);
+//        container.addConstraint("(/app)?/app/admin/.*", Role.ADMIN);
+//        container.addConstraint("(/app)?/user/.*", Role.ADMIN,Role.USER);
     }
 
     private void initContrrolerMapping(){
@@ -44,6 +45,7 @@ public class AppTuner {
                 .addPathMap("/index", new RandomHotTicketController())
                 .addPathMap("/login", new LoginController())
                 .addPathMap("/register", new RegisterController())
+                .addPathMap("/admin/airport_managing", new AirportsManagmentController())
                 .buildAndRegister("Controller Dispatcher Servlet", "/app/*");
     }
 }

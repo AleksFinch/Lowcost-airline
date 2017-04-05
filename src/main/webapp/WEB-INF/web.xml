@@ -4,7 +4,12 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
+    <jsp-config>
 
+        <jsp-property-group>
+            <url-pattern>*.html</url-pattern>
+        </jsp-property-group>
+    </jsp-config>
     <resource-ref>
         <description>D</description>
         <res-ref-name>jdbc/lowcost</res-ref-name>

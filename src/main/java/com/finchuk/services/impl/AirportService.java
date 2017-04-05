@@ -19,6 +19,16 @@ public class AirportService extends AbstractEntityService<Airport, String> {
         obj.setAirportId(id);
     }
 
+    @Override
+    public boolean add(Airport airport) {
+        if(find(airport.getAirportId())==null){
+            super.add(airport);
+            return true;
+        }
+        return false;
+
+    }
+
     public static AirportService getInstance() {
         return airportService;
     }
