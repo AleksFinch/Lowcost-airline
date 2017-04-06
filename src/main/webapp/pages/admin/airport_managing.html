@@ -5,34 +5,14 @@
 <fmt:setBundle basename="lang" var="rb"/>
 <html>
 <head>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="/resources/css/styles.css">
+    <c:import url="/resources/components/dependencies.html"/>
     <title>
         <fmt:message key="airport.managing" bundle="${rb}"/>
     </title>
 </head>
 <body>
 
-<div style="clear: both ;margin-bottom:4%; position:relative;">
-    <img src="/resources/images/myLogo.png" width="100%"/>
-    <div style="position: absolute; right:5%; top: 95%;">
-        <form>
-
-            <button class="btn  btn-primary glyphicon glyphicon-find ">
-                Find tickets
-            </button>
-            <button class="btn btn-primary glyphicon glyphicon-user"
-            >
-                Personal cabinet
-            </button>
-
-            <button class="btn btn-primary glyphicon glyphicon-log-in"
-            >
-                Log Out
-            </button>
-        </form>
-    </div>
-</div>
+<c:import url="/resources/components/navigation.html"/>
 
 <form>
     <div class="col-md-3">

@@ -1,0 +1,31 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setBundle basename="lang" var="rb" />
+
+<a href="/">
+    <img src="/resources/images/myLogo.png" width="100%"/>
+</a>
+
+<div class="navbar" >
+    <div class="container">
+        <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a class="glyphicon glyphicon-find " href="#" > Find tickets</a>
+                </li>
+                <li >
+                    <a class="glyphicon glyphicon-user" href="#"> Personal cabinet</a>
+                </li >
+                <li>
+                    <a href="#"  class="glyphicon glyphicon-log-in" onclick="logout()"> Log Out</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+
+<script src="/resources/js/navigation.js"></script>
