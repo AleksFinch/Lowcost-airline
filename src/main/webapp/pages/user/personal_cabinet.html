@@ -1,0 +1,88 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setBundle basename="lang" var="rb"/>
+<html>
+<head>
+    <c:import url="/resources/components/dependencies.html"/>
+    <title>
+        <fmt:message key="airport.managing" bundle="${rb}"/>
+    </title>
+</head>
+<body>
+
+<c:import url="/resources/components/navigation.html"/>
+
+
+<div class="col-md-3">
+    <ul class="nav nav-pills nav-stacked">
+        <li>
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active">
+                    <a href="#">Personal information</a>
+                </li>
+
+                <li>
+                    <a href="/user/personal_tickets">
+                        Personal tickets
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<div class="container">
+    <div class="panel panel-info col-md-offset-3 ">
+        <div class="panel-heading ">
+            Your personal information
+        </div>
+        <div class="panel-body">
+            <div class="col-md-4">
+                <img src="/resources/images/user_pic/pic1.png" width="100%"/>
+            </div>
+            <div class="col-md-8">
+
+                <table class="table table-hover">
+                    <tr>
+                        <td>
+                            <b>First name:</b><span class="glyphicons glyphicons-address-book"/>
+                        </td>
+                        <td>
+
+                            <c:out value="${current_user.firstName}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Last name:</b><span class="glyphicons glyphicons-address-book"/>
+                        </td>
+                        <td>
+
+                            <c:out value="${current_user.lastName}"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>E-mail:</b><span class="social social-gmail"/>
+                        </td>
+                        <td>
+                            <c:out value="${current_user.eMail}"/>
+                        </td>
+
+                    </tr>
+
+                    </tr>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

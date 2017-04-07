@@ -47,6 +47,8 @@ public class TicketService extends AbstractEntityService<Ticket, Long> {
         return tickets;
     }
 
+
+
     public static TicketService getInstance() {
         return ticketService;
     }

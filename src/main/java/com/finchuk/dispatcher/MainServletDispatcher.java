@@ -41,26 +41,30 @@ public class MainServletDispatcher extends HttpServlet {
     }
 
     private void dispatch(HttpServletRequest req, HttpServletResponse resp){
-        String pathInfo = req.getPathInfo();
+        try {
+            String pathInfo = req.getPathInfo();
 
-        if(pathInfo==null){
-            pathInfo="/";
+
+            if (pathInfo == null) {
+                pathInfo = "/";
+            }
+            Controller controller = getController(pathInfo);
+            RequestService requestService = new RequestService(req, resp);
+            Optional.ofNullable(controller).ifPresent(e -> e.execute(requestService));
+            if (!tryRedirect(requestService)) {
+                tryRender(req, resp, requestService);
+            }
+            if (requestService.isRedirect()) {
+                requestService.clearRedirectFlag();
+            } else {
+                //TODO: release flash
+            }
+
+            //TODO: release resources
+
+        }catch (Throwable e){
+            LOGGER.error(e);
         }
-        Controller controller = getController(pathInfo);
-        RequestService requestService = new RequestService(req,resp);
-        Optional.ofNullable(controller).ifPresent(e->e.execute(requestService));
-        if(!tryRedirect(requestService)){
-            tryRender(req,resp,requestService);
-        }
-        if(requestService.isRedirect()){
-            requestService.clearRedirectFlag();
-        }else{
-            //TODO: release flash
-        }
-
-       //TODO: release resources
-
-
     }
 
     public void addMapping(String url, Controller controller) {

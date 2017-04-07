@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS airline (
   id           BIGINT(11)  NOT NULL AUTO_INCREMENT,
   company_name VARCHAR(64) NOT NULL,
-  img_path     VARCHAR(255),
+  img_path     VARCHAR(512),
   PRIMARY KEY (id)
 );
 

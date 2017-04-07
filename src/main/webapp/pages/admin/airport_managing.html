@@ -14,38 +14,8 @@
 
 <c:import url="/resources/components/navigation.html"/>
 
-<form>
-    <div class="col-md-3">
-        <ul class="nav nav-pills nav-stacked">
-            <li>
-                <ul class="nav nav-pills nav-stacked">
-                    <li class="active">
-                        <a href="#">Manage airports</a>
-                    </li>
+<c:import url="/resources/components/admin_navigation.html"/>
 
-                    <li>
-                        <a href="/pages/create_pages/create_company.xhtml?faces-redirect=true"
-                        >
-                            Manage airline companies
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/pages/create_pages/create_route.xhtml?faces-redirect=true"
-                        >
-                            Manage routes
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/pages/create_pages/create_flight.xhtml?faces-redirect=true"
-                        >
-                            Manage flights
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-</form>
 
 <c:if test="${param.already_exist}">
     <div >
@@ -67,15 +37,14 @@
         <label for="town">Town:</label>
         <input type="text" name="town" class="form-control" id="town"/>
     </div>
-    <button class="btn btn-success">
-        Add Airport
-    </button>
+    <input type="submit" class="btn btn-success" value="Add airport">
+
 </form>
 
 <div style="margin-top:20px;" class="container col-md-offset-3 col-md-7">
     <div class="panel panel-info">
         <div class="panel-heading ">
-            Addresses
+            Airports
         </div>
         <div class="panel-body">
             <table class="table table-hover ">

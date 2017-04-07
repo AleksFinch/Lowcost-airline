@@ -1,5 +1,6 @@
 package com.finchuk.entities;
 
+import java.net.URI;
 import java.net.URL;
 import java.util.Objects;
 
@@ -9,7 +10,7 @@ import java.util.Objects;
 public class Airline {
     private Long companyId;
     private String companyName;
-    private URL imgPath;
+    private URI imgPath;
 
     public Long getCompanyId() {
         return companyId;
@@ -27,11 +28,11 @@ public class Airline {
         this.companyName = companyName;
     }
 
-    public URL getImgPath() {
+    public URI getImgPath() {
         return imgPath;
     }
 
-    public void setImgPath(URL imgPath) {
+    public void setImgPath(URI imgPath) {
         this.imgPath = imgPath;
     }
 

@@ -1,6 +1,7 @@
 package com.finchuk.controller;
 
 import com.finchuk.dispatcher.MainServletDispatcher;
+import com.finchuk.entities.User;
 import com.finchuk.security.HTTPMethod;
 import com.finchuk.security.LoginServletWrapper;
 import org.apache.logging.log4j.LogManager;
@@ -30,6 +31,9 @@ public class RequestService {
 
     public void setPageAttribute(String key, Object val) {
         httpServletRequest.setAttribute(key, val);
+    }
+    public Optional<User> getCurrentUser() {
+        return Optional.ofNullable((User) httpServletRequest.getSession(true).getAttribute("user"));
     }
 
     public HTTPMethod getMethod() {

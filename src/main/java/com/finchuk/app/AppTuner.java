@@ -1,15 +1,18 @@
 package com.finchuk.app;
 
 import com.finchuk.controller.*;
+import com.finchuk.controller.admin.AirlinesManagmentController;
 import com.finchuk.controller.admin.AirportsManagmentController;
+import com.finchuk.controller.admin.FlightsManagmentController;
+import com.finchuk.controller.admin.RoutesManagmentController;
+import com.finchuk.controller.user.PersonalCabinetController;
+import com.finchuk.controller.user.PersonalTicketsController;
 import com.finchuk.dao.jdbc.ConnectionManager;
-import com.finchuk.dispatcher.MainServletDispatcher;
 import com.finchuk.dispatcher.MainServletDispatcherBuilder;
 import com.finchuk.entities.Role;
 import com.finchuk.security.SecurityContainer;
 
 import javax.servlet.ServletContext;
-import javax.servlet.annotation.WebListener;
 
 /**
  * Created by olexandr on 03.04.17.
@@ -43,7 +46,13 @@ public class AppTuner {
                 .addPathMap("/login", new LoginController())
                 .addPathMap("/logout",new LogoutController())
                 .addPathMap("/register", new RegisterController())
+                .addPathMap("/find_tickets", new FindingTicketsController())
+                .addPathMap("/user/personal_tickets", new PersonalTicketsController())
+                .addPathMap("/user/personal_cabinet", new PersonalCabinetController())
                 .addPathMap("/admin/airport_managing", new AirportsManagmentController())
+                .addPathMap("/admin/airline_managing", new AirlinesManagmentController())
+                .addPathMap("/admin/route_managing", new RoutesManagmentController())
+                .addPathMap("/admin/flight_managing", new FlightsManagmentController())
                 .buildAndRegister("Controller Dispatcher Servlet", "/app/*");
     }
 }

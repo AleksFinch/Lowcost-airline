@@ -12,8 +12,6 @@ import com.finchuk.services.AbstractEntityService;
 public class UserService extends AbstractEntityService<User, Long> {
     private static UserService userService = new UserService();
 
-    private TicketService ticketService = TicketService.getInstance();
-
     private UserService() {
         dao = JdbcDaoFactory.getInstance().getUserDao();
     }
