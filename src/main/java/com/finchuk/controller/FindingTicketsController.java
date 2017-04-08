@@ -1,6 +1,7 @@
 package com.finchuk.controller;
 
 import com.finchuk.entities.Ticket;
+import com.finchuk.services.factory.ServiceFactory;
 import com.finchuk.services.impl.FlightService;
 import com.finchuk.services.impl.TicketService;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * Created by root on 06.04.17.
  */
 public class FindingTicketsController extends Controller {
-    FlightService service =FlightService.getInstance();
+    FlightService service = ServiceFactory.getFlightService();
     @Override
     public void get(RequestService reqService) {
         String fromTown = reqService.getString("from_town");

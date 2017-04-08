@@ -4,6 +4,7 @@ import com.finchuk.dao.jdbc.transaction.Transaction;
 import com.finchuk.entities.Role;
 import com.finchuk.entities.User;
 import com.finchuk.services.AuthService;
+import com.finchuk.services.factory.ServiceFactory;
 import com.finchuk.util.PasswordEncoder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,18 +19,20 @@ import java.sql.Connection;
 public class AuthServiceImpl implements AuthService {
     private static final Logger LOGGER = LogManager.getLogger(AuthServiceImpl.class);
 
-    private static AuthServiceImpl authService = new AuthServiceImpl();
+    private UserService userService;
 
-    private static UserService userService = UserService.getInstance();
+    public AuthServiceImpl() {
 
-    private AuthServiceImpl() {
+    }
 
+    public void init(){
+        userService = ServiceFactory.getUserService();
     }
 
     @Override
     public boolean login(HttpServletRequest request, String user, String password) {
         try {
-            request.login(user, password);
+            request.login(user.toLowerCase(), password);
             return true;
         } catch (ServletException e) {
             return false;
@@ -51,22 +54,23 @@ public class AuthServiceImpl implements AuthService {
         String encodedPass = PasswordEncoder.encode(user.getPassword());
         user.setPassword(encodedPass);
         user.setRole(Role.USER);
-        boolean[] result = new boolean[1];
-        Transaction.doTransaction(() -> {
+        user.seteMail(user.geteMail().toLowerCase());
+
+        synchronized (this){
             User exist = userService.find(user.getUserId());
             if (exist == null) {
                 userService.add(user);
-                result[0] = true;
+                return true;
             } else {
-                result[0] = false;
+                return false;
             }
-        }, Connection.TRANSACTION_SERIALIZABLE);
-        return result[0];
+        }
+
     }
 
     @Override
     public User checkLogin(String username, String password) {
-        User user = userService.findByEMail(username);
+        User user = userService.findByEMail(username.toLowerCase());
         if(user==null)
             return null;
         String encoded = PasswordEncoder.encode(password);
@@ -76,7 +80,4 @@ public class AuthServiceImpl implements AuthService {
         return user;
     }
 
-    public static AuthServiceImpl getInstance() {
-        return authService;
     }
-}

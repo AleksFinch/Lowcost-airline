@@ -24,7 +24,7 @@
         </div>
     </div>
 </c:if>
-<form class="col-md-5" action="/admin/route_managing" method="post">
+<form class="col-md-5" action="/admin/flight_managing" method="post">
 
     <div class="form-group">
         <label for="sel_airline">Airline:</label>
@@ -38,7 +38,7 @@
     <div class="form-group">
         <label for="sel_airport_from">From:</label>
 
-        <select name="s_airline_from"  class="form-control" id="sel_airport_from">
+        <select name="s_airport_from"  class="form-control" id="sel_airport_from">
             <c:forEach var="airport" items="${sel_airports}">
                 <option value="${airport.airportId}">${airport}</option>
             </c:forEach>
@@ -47,7 +47,7 @@
     <div class="form-group">
         <label for="sel_airport_to">To:</label>
 
-        <select name="s_airline_to"  class="form-control" id="sel_airport_to">
+        <select name="s_airport_to"  class="form-control" id="sel_airport_to">
             <c:forEach var="airport" items="${sel_airports}">
                 <option value="${airport.airportId}">${airport}</option>
             </c:forEach>
@@ -63,13 +63,28 @@
         <input type="text" id="plane" class="form-control" name="plane"/>
     </div>
     <div class="form-group">
-        <input type="submit" class="btn btn-success" value="Add route">
-
+        <label for="departure_time">Departure time:</label>
+        <input type="datetime" id="departure_time" class="form-control" name="departure_time"/>
+    </div>
+    <div class="form-group">
+        <label for="start_price">Start price:</label>
+        <input type="text" id="start_price" class="form-control" name="start_price"/>
+    </div>
+    <div class="form-group">
+        <label for="start_price_business">Start price for privilege:</label>
+        <input type="text" id="start_price_business" class="form-control" name="start_price_business"/>
+    </div>
+    <div class="form-group">
+        <label for="tickets_count">Tickets count:</label>
+        <input type="text" id="tickets_count" class="form-control" name="tickets_count"/>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-success" value="Add flight">
     </div>
 
 </form>
 
-<div style="margin-top:20px;" class="container col-md-offset-3 col-md-7">
+<div style="margin-top:20px;" class="container col-md-offset-1 col-md-10">
     <div class="panel panel-info">
         <div class="panel-heading ">
             Routes
@@ -82,14 +97,24 @@
                     <th>To</th>
                     <th>Flight duration</th>
                     <th>Plane</th>
+                    <th>Departure time</th>
+                    <th>Start price</th>
+                    <th>Start price for privilege</th>
+                    <th>Tickets count</th>
+                    <th>Available tickets</th>
                 </tr>
-                <c:forEach items="${routes}" var="route">
+                <c:forEach items="${flights}" var="flight">
                     <tr>
-                        <td>${route.company.companyName}</td>
-                        <td>${route.airportFrom}</td>
-                        <td>${route.airportTo}</td>
-                        <td>${route.flightDuration}</td>
-                        <td>${route.plane}</td>
+                        <td>${flight.route.company.companyName}</td>
+                        <td>${flight.route.airportFrom}</td>
+                        <td>${flight.route.airportTo}</td>
+                        <td>${flight.route.flightDuration}</td>
+                        <td>${flight.route.plane}</td>
+                        <td>${flight.departureTime}</td>
+                        <td>${flight.startPrice}</td>
+                        <td>${flight.startPriceForBusiness}</td>
+                        <td>${flight.tickets.size()}</td>
+                        <td>${availableTickets.get(flight)}</td>
                     </tr>
                 </c:forEach>
             </table>

@@ -3,6 +3,7 @@ package com.finchuk.security;
 import com.finchuk.entities.Role;
 import com.finchuk.entities.User;
 import com.finchuk.services.AuthService;
+import com.finchuk.services.factory.ServiceFactory;
 import com.finchuk.services.impl.AuthServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -52,7 +53,7 @@ public class LoginServletWrapper extends HttpServletRequestWrapper {
 
     @Override
     public void login(String username, String password) throws ServletException {
-        AuthService service = AuthServiceImpl.getInstance();
+        AuthService service = ServiceFactory.getAuthService();
         User user = service.checkLogin(username, password);
         if (user!=null) {
             getHttpRequest().getSession(true).setAttribute("user", user);

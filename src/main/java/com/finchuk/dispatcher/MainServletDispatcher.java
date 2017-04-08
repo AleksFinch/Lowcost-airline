@@ -62,8 +62,9 @@ public class MainServletDispatcher extends HttpServlet {
 
             //TODO: release resources
 
-        }catch (Throwable e){
-            LOGGER.error(e);
+        }catch (Exception e){
+            LOGGER.error("something wrong",e);
+            throw e;
         }
     }
 

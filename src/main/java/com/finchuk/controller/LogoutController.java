@@ -1,6 +1,7 @@
 package com.finchuk.controller;
 
 import com.finchuk.services.AuthService;
+import com.finchuk.services.factory.ServiceFactory;
 import com.finchuk.services.impl.AuthServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,7 +11,7 @@ public final class LogoutController extends Controller {
 
     private static final Logger LOGGER = LogManager.getLogger(LogoutController.class);
 
-    private AuthService authService = AuthServiceImpl.getInstance();
+    private AuthService authService = ServiceFactory.getAuthService();
 
     @Override
     public void post(RequestService reqService) {

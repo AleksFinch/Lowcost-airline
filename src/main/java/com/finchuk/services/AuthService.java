@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
  * Created by olexandr on 30.03.17.
  */
 public interface AuthService {
+    void init();
     boolean login(HttpServletRequest request, String user, String password);
 
     void logout(HttpServletRequest request);

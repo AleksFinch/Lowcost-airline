@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS ticket (
   place_number INT(11)        NOT NULL,
   price        DECIMAL(10, 2) NOT NULL,
   flight       BIGINT(11)     NOT NULL,
-  owner        BIGINT(11)     NOT NULL,
+  owner        BIGINT(11),
   status       INT(2)         NOT NULL,
   with_baggage BIT            NOT NULL,
   PRIMARY KEY (id),

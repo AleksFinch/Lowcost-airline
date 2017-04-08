@@ -8,9 +8,7 @@ import com.finchuk.services.AbstractEntityService;
  * Created by olexandr on 29.03.17.
  */
 public class AirportService extends AbstractEntityService<Airport, String> {
-    private static AirportService airportService = new AirportService();
-
-    private AirportService() {
+    public AirportService() {
         dao = JdbcDaoFactory.getInstance().getAirportDao();
     }
 
@@ -20,16 +18,14 @@ public class AirportService extends AbstractEntityService<Airport, String> {
     }
 
     @Override
-    public boolean add(Airport airport) {
-        if(find(airport.getAirportId())==null){
-            super.add(airport);
+    public synchronized boolean add(Airport airport) {
+        if (find(airport.getAirportId()) == null) {
+            airport.setAirportId(airport.getAirportId().toLowerCase());
+            dao.add(airport);
             return true;
         }
         return false;
 
     }
 
-    public static AirportService getInstance() {
-        return airportService;
-    }
 }

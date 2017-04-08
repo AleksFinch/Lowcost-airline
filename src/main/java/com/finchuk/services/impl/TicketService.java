@@ -6,6 +6,7 @@ import com.finchuk.entities.Flight;
 import com.finchuk.entities.Ticket;
 import com.finchuk.entities.User;
 import com.finchuk.services.AbstractEntityService;
+import com.finchuk.services.factory.ServiceFactory;
 
 import java.util.List;
 
@@ -13,15 +14,17 @@ import java.util.List;
  * Created by olexandr on 29.03.17.
  */
 public class TicketService extends AbstractEntityService<Ticket, Long> {
-    private static TicketService ticketService = new TicketService();
+     private FlightService flightService;
+    private UserService userService;
 
-    private FlightService flightService = FlightService.getInstance();
-    private UserService userService = UserService.getInstance();
-
-    private TicketService() {
+    public TicketService() {
         dao = JdbcDaoFactory.getInstance().getTicketDao();
     }
 
+    public void init(){
+        flightService = ServiceFactory.getFlightService();
+        userService = ServiceFactory.getUserService();
+    }
     @Override
     protected void setId(Ticket obj, Long id) {
         obj.setTicketId(id);
@@ -49,7 +52,4 @@ public class TicketService extends AbstractEntityService<Ticket, Long> {
 
 
 
-    public static TicketService getInstance() {
-        return ticketService;
     }
-}

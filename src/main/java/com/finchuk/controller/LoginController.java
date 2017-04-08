@@ -1,13 +1,14 @@
 package com.finchuk.controller;
 
 import com.finchuk.services.AuthService;
+import com.finchuk.services.factory.ServiceFactory;
 import com.finchuk.services.impl.AuthServiceImpl;
 
 /**
  * Created by root on 04.04.17.
  */
 public class LoginController extends Controller {
-    private AuthService authService = AuthServiceImpl.getInstance();
+    private AuthService authService = ServiceFactory.getAuthService();
 
 
     @Override
@@ -24,7 +25,7 @@ public class LoginController extends Controller {
                 reqService.redirect(destination);
             }
         } else {
-            reqService.redirect("/login.html?failed=true");
+            reqService.redirect("/login.html?invalid=true");
         }
     }
 }

@@ -9,6 +9,7 @@ import com.finchuk.entities.Ticket;
 import com.finchuk.entities.User;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by olexandr on 26.03.17.
@@ -36,7 +37,7 @@ public class TicketJdbcDao implements TicketDao {
                 ticket.getPlaceNumber(),
                 ticket.getPrice(),
                 ticket.getFlight().getFlightId(),
-                ticket.getOwner().getUserId(),
+                Optional.ofNullable(ticket.getOwner()).map(e->e.getUserId()).orElse(null),
                 ticket.getStatus().getValue(),
                 ticket.isWithBaggage());
     }
@@ -61,7 +62,7 @@ public class TicketJdbcDao implements TicketDao {
                 ticket.getPlaceNumber(),
                 ticket.getPrice(),
                 ticket.getFlight().getFlightId(),
-                ticket.getOwner().getUserId(),
+                Optional.ofNullable(ticket.getOwner()).map(e->e.getUserId()).orElse(null),
                 ticket.getStatus().getValue(),
                 ticket.isWithBaggage(),
                 ticket.getTicketId());

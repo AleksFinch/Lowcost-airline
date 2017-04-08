@@ -2,13 +2,14 @@ package com.finchuk.controller;
 
 import com.finchuk.entities.User;
 import com.finchuk.services.AuthService;
+import com.finchuk.services.factory.ServiceFactory;
 import com.finchuk.services.impl.AuthServiceImpl;
 
 /**
  * Created by root on 05.04.17.
  */
 public class RegisterController extends Controller {
-    AuthService service = AuthServiceImpl.getInstance();
+    AuthService service = ServiceFactory.getAuthService();
     @Override
     public void post(RequestService reqService) {
         String firstname = reqService.getString("firstname");

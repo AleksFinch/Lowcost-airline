@@ -4,6 +4,7 @@ import com.finchuk.controller.Controller;
 import com.finchuk.controller.RequestService;
 import com.finchuk.entities.Ticket;
 import com.finchuk.entities.User;
+import com.finchuk.services.factory.ServiceFactory;
 import com.finchuk.services.impl.TicketService;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.List;
  * Created by root on 06.04.17.
  */
 public class PersonalTicketsController extends Controller {
-    TicketService service =TicketService.getInstance();
+    TicketService service = ServiceFactory.getTicketService();
     @Override
     public void get(RequestService reqService) {
         List<Ticket> tickets = new ArrayList<>();

@@ -3,9 +3,13 @@ package com.finchuk.services.impl;
 import com.finchuk.dao.FlightDao;
 import com.finchuk.dao.TicketDao;
 import com.finchuk.dao.factory.JdbcDaoFactory;
+import com.finchuk.dao.jdbc.transaction.Transaction;
 import com.finchuk.entities.Flight;
+import com.finchuk.entities.Route;
 import com.finchuk.entities.Ticket;
+import com.finchuk.entities.TicketStatus;
 import com.finchuk.services.AbstractEntityService;
+import com.finchuk.services.factory.ServiceFactory;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -15,14 +19,17 @@ import java.util.List;
  * Created by olexandr on 29.03.17.
  */
 public class FlightService extends AbstractEntityService<Flight, Long> {
-    private static FlightService flightService = new FlightService();
-    private RouteService routeService = RouteService.getInstance();
-    private TicketService ticketService = TicketService.getInstance();
+   private RouteService routeService ;
+    private TicketService ticketService ;
 
-    private FlightService() {
+    public FlightService() {
         dao = JdbcDaoFactory.getInstance().getFlightDao();
     }
 
+    public void init(){
+        routeService = ServiceFactory.getRouteService();
+        ticketService = ServiceFactory.getTicketService();
+    }
     @Override
     protected void setId(Flight obj, Long id) {
         obj.setFlightId(id);
@@ -31,11 +38,10 @@ public class FlightService extends AbstractEntityService<Flight, Long> {
     @Override
     protected void loadTails(Flight obj) {
         obj.setRoute(routeService.find(obj.getRoute().getRouteId()));
+        obj.setTickets(ticketService.getFlightTickets(obj));
+
     }
 
-    public static FlightService getInstance() {
-        return flightService;
-    }
 
     public List<Flight> getFlightWithSearching(String townFrom, String townTo, String depDate) {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -43,5 +49,20 @@ public class FlightService extends AbstractEntityService<Flight, Long> {
         List<Flight> tickets = ((FlightDao) dao).getFlightsByParams(townFrom.toLowerCase(),townTo.toLowerCase(),date);
         tickets.forEach(e->loadTails(e));
         return tickets;
+    }
+
+    public void addFlightWithTickets(Flight flight, int ticketsCount){
+        Transaction.doTransaction(()->{
+            Route route = routeService.loadOrCreate(flight.getRoute());
+            flight.setRoute(route);
+            add(flight);
+            Ticket ticket =new Ticket();
+            ticket.setFlight(flight);
+            ticket.setStatus(TicketStatus.FREE);
+            ticket.setPrice(flight.getStartPrice());
+            for (int i = 0; i <ticketsCount; i++) {
+                ticketService.add(ticket);
+            }
+        });
     }
 }
