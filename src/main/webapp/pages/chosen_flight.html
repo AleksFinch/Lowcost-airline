@@ -2,33 +2,44 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setBundle basename="lang" var="rb" />
+<fmt:setBundle basename="lang" var="rb"/>
 <head>
     <c:import url="/resources/components/dependencies.html"/>
-    <title><fmt:message key="signup" bundle="${rb}"/></title>
+    <link href="/resources/css/bootstrap/toggle/bootstrap-toggle.min.css" rel="stylesheet">
+
+    <script src="/resources/js/toggle/bootstrap-toggle.min.js"></script>
+    <title>
+        <fmt:message key="signup" bundle="${rb}"/>
+    </title>
 </head>
 <body>
 
-<div style="clear: both">
-    <img src="/resources/images/myLogo.png" width="100%"/>
-</div>
+<c:import url="/resources/components/navigation.html"/>
 <h1 align="center"> Buying ticket </h1>
+
+<c:if test="${param.ran_out}">
+    <div class="container">
+        <div class=" container alert alert-danger col-md-offset-4 col-md-4 ">
+            <h2 align="center"> Sorry, tickets ran out :( </h2>
+        </div>
+    </div>
+</c:if>
 
 <div class="container col-md-offset-2 col-md-8">
 
-        <div class="panel panel-primary ">
+    <div class="panel panel-primary ">
 
-            <div class="panel-heading">
-                <c:out value="${flight.route.company.companyName}"/>
+        <div class="panel-heading">
+            <c:out value="${flight.route.company.companyName}"/>
+        </div>
+
+
+        <div class="panel-body">
+
+            <div class="col-md-4">
+                <img src="${flight.route.company.imgPath}" width="100%"/>
             </div>
-
-
-            <div class="panel-body">
-
-                <div class="col-md-4">
-                    <img src="${flight.route.company.imgPath}" width="100%"/>
-                </div>
-
+            <form action="/user/buy_ticket?id=${flight.flightId}" method="post">
                 <div class="col-md-8">
                     <table class="table table-hover ">
                         <tr>
@@ -59,6 +70,9 @@
                             <td>
 
 
+                                <input type="checkbox" name="privilege"
+                                       data-toggle="toggle" data-on="Business class" data-off="Economy class"
+                                       data-onstyle="success"/>
 
                             </td>
 
@@ -68,7 +82,8 @@
                                 <b>With baggage:</b><span class="social social-gmail"/>
                             </td>
                             <td>
-
+                                <input type="checkbox" name="with_baggage"
+                                       data-toggle="toggle" data-on="with" data-off="without" data-onstyle="success"/>
                             </td>
                         </tr>
                         <tr>
@@ -79,10 +94,14 @@
                                 ${flight.startPrice}
                             </td>
                         </tr>
+
                     </table>
+                    <input type="hidden" name="flight_id" value="${flight.flightId}"/>
+                    <input type="submit" class="btn btn-success btn-block btn-lg" value="Buy ticket"/>
                 </div>
-            </div>
+            </form>
         </div>
+    </div>
 
 </div>
 

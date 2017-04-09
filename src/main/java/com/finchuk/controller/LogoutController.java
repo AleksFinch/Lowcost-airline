@@ -16,6 +16,6 @@ public final class LogoutController extends Controller {
     @Override
     public void post(RequestService reqService) {
         authService.logout(reqService.getRequest());
-        reqService.redirect("/login.html");
+        reqService.redirect("/login");
     }
 }

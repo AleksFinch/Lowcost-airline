@@ -15,23 +15,7 @@
 <c:import url="/resources/components/navigation.html"/>
 
 
-<div class="col-md-3">
-    <ul class="nav nav-pills nav-stacked">
-        <li>
-            <ul class="nav nav-pills nav-stacked">
-                <li>
-                    <a href="/user/personal_cabinet">Personal information</a>
-                </li>
-
-                <li class="active">
-                    <a href="#">
-                        Personal tickets
-                    </a>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</div>
+<c:import url="/resources/components/user_navigation.html"/>
 
 
 <div class="container col-md-8">
@@ -123,6 +107,8 @@
     </c:forEach>
 </div>
 
-
+<script>
+    $("#pers_tick").addClass( "active" );
+</script>
 </body>
 </html>

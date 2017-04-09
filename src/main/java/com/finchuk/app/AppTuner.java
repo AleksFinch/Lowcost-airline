@@ -4,8 +4,7 @@ import com.finchuk.controller.*;
 import com.finchuk.controller.admin.AirlinesManagmentController;
 import com.finchuk.controller.admin.AirportsManagmentController;
 import com.finchuk.controller.admin.FlightsManagmentController;
-import com.finchuk.controller.user.PersonalCabinetController;
-import com.finchuk.controller.user.PersonalTicketsController;
+import com.finchuk.controller.user.*;
 import com.finchuk.dao.jdbc.ConnectionManager;
 import com.finchuk.dispatcher.MainServletDispatcherBuilder;
 import com.finchuk.entities.Role;
@@ -47,7 +46,10 @@ public class AppTuner {
                 .addPathMap("/register", new RegisterController())
                 .addPathMap("/find_tickets", new FindingTicketsController())
                 .addPathMap("/chosen_flight", new ChosenFlightController())
+                .addPathMap("/user/buy_ticket", new BuyingTicketController())
+                .addPathMap("/user/payment", new PaymentController())
                 .addPathMap("/user/personal_tickets", new PersonalTicketsController())
+                .addPathMap("/user/unpaid_tickets", new UnpaidTicketsController())
                 .addPathMap("/user/personal_cabinet", new PersonalCabinetController())
                 .addPathMap("/admin/airport_managing", new AirportsManagmentController())
                 .addPathMap("/admin/airline_managing", new AirlinesManagmentController())

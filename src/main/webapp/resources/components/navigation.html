@@ -2,30 +2,43 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setBundle basename="lang" var="rb" />
-
 <a href="/">
     <img src="/resources/images/myLogo.png" width="100%"/>
 </a>
 
-<div class="navbar" >
-    <div class="container">
-        <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
-            <ul class="nav navbar-nav">
+<div class="navbar">
+    <div>
+        <nav style="margin:0 10% 0 5%;" class="collapse navbar-collapse" role="navigation">
+
+            <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a class="glyphicon glyphicon-find " href="/find_tickets" > Find tickets</a>
+                    <a class="btn" href="/find_tickets">  <h5 class="glyphicon glyphicon-send" > Find tickets</h5></a>
                 </li>
-                <li >
-                    <a class="glyphicon glyphicon-user" href="/user/personal_cabinet"> Personal cabinet</a>
-                </li >
+                <% request.setAttribute("isAdmin", request.isUserInRole("admin")); %>
+                <c:if test="${isAdmin}">
+                    <li>
+                        <a class="btn" href="/admin/airline_managing"> <h5 class="glyphicon glyphicon-king" > Administration</h5></a>
+                    </li>
+                </c:if>
+
                 <li>
-                    <a href="#"  class="glyphicon glyphicon-log-in" onclick="logout()"> Log Out</a>
+                    <a class="btn" href="/user/personal_cabinet"> <h5 class="glyphicon glyphicon-user" > Personal cabinet</h5></a>
                 </li>
+                <% request.setAttribute("isLoggedIn", request.getUserPrincipal()); %>
+                <c:if test="${isLoggedIn!=null}">
+                    <li>
+                        <a href="#" class="btn" onclick="logout()"> <h5 class="glyphicon glyphicon-log-in" > Log Out</h5></a>
+                    </li>
+                </c:if>
+                <c:if test="${isLoggedIn==null}">
+                    <li>
+                        <a href="/login" class="btn" > <h5 class="glyphicon glyphicon-log-in" > Log In</h5></a>
+                    </li>
+                </c:if>
             </ul>
         </nav>
     </div>
 </div>
-
 
 
 <script src="/resources/js/navigation.js"></script>

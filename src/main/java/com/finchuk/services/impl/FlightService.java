@@ -1,7 +1,6 @@
 package com.finchuk.services.impl;
 
 import com.finchuk.dao.FlightDao;
-import com.finchuk.dao.TicketDao;
 import com.finchuk.dao.factory.JdbcDaoFactory;
 import com.finchuk.dao.jdbc.transaction.Transaction;
 import com.finchuk.entities.Flight;
@@ -64,5 +63,13 @@ public class FlightService extends AbstractEntityService<Flight, Long> {
                 ticketService.add(ticket);
             }
         });
+    }
+
+    public Long freeTickets(Flight f){
+        return f.getTickets()
+                .stream()
+                .filter(e->e.getStatus()== TicketStatus.FREE)
+                .count();
+
     }
 }

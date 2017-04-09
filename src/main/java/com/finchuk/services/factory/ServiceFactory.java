@@ -14,6 +14,7 @@ public class ServiceFactory {
     static private RouteService routeService;
     static private TicketService ticketService;
     static private UserService userService;
+    static private PaymentService paymentService;
     static {
         airlineService = new AirlineService();
         airportService = new AirportService();
@@ -22,12 +23,14 @@ public class ServiceFactory {
         routeService = new RouteService();
         ticketService = new TicketService();
         userService = new UserService();
+        paymentService = new PaymentService();
 
 
         authService.init();
         flightService.init();
         routeService.init();
         ticketService.init();
+        paymentService.init();
     }
 
     static public AirlineService getAirlineService() {
@@ -62,5 +65,10 @@ public class ServiceFactory {
 
     static public UserService getUserService() {
         return userService;
+    }
+
+
+    static public PaymentService getPaymentService() {
+        return paymentService;
     }
 }

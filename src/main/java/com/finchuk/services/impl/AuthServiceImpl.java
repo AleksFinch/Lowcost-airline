@@ -74,7 +74,7 @@ public class AuthServiceImpl implements AuthService {
         if(user==null)
             return null;
         String encoded = PasswordEncoder.encode(password);
-        if(!encoded.equals(encoded)){
+        if(!encoded.equals(user.getPassword())){
             return null;
         }
         return user;

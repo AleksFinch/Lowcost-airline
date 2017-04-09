@@ -34,10 +34,7 @@ public class FlightsManagmentController extends Controller {
         Map<Flight, Long> map=new HashMap<>();
         for (Flight f:
              flights) {
-            Long free = f.getTickets()
-                    .stream()
-                    .filter(e->e.getStatus()== TicketStatus.FREE)
-                    .count();
+            Long free = flightService.freeTickets(f);
             map.put(f,free);
         }
         reqService.setPageAttribute("availableTickets",map);
