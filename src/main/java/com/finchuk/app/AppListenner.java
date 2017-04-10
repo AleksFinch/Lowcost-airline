@@ -20,8 +20,11 @@ public class AppListenner implements ServletContextListener {
         //TODO: translation
         //TODO: own tag
         //TODO: free ticket if not bough
+        //TODO: fix working with date
         //TODO: validate
+        //TODO: validate on front
         //TODO: fix entities
+        //TODO: add js to front
         sce.getServletContext().setAttribute("webApplication", app);
         app.setServletContext(sce.getServletContext());
         app.init();

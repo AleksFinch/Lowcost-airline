@@ -7,7 +7,7 @@
 <head>
     <c:import url="/resources/components/dependencies.html"/>
     <title>
-        <fmt:message key="route.managing" bundle="${rb}"/>
+        <fmt:message key="manage.flight" bundle="${rb}"/>
     </title>
 </head>
 <body>
@@ -17,17 +17,17 @@
 
 <c:import url="/resources/components/admin_navigation.html"/>
 
-<c:if test="${param.invalid_path}">
+<c:if test="${not empty param.error}">
     <div>
         <div class=" container alert alert-danger col-md-5 ">
-            Invalid path! Please, try again
+            <fmt:message key="${param.error}" bundle="${rb}"/>
         </div>
     </div>
 </c:if>
 <form class="col-md-5" action="/admin/flight_managing" method="post">
 
     <div class="form-group">
-        <label for="sel_airline">Airline:</label>
+        <label for="sel_airline"><fmt:message key="airline" bundle="${rb}"/>:</label>
 
         <select name="s_airline"  class="form-control" id="sel_airline">
             <c:forEach var="airline" items="${sel_airlines}">
@@ -36,7 +36,7 @@
         </select>
     </div>
     <div class="form-group">
-        <label for="sel_airport_from">From:</label>
+        <label for="sel_airport_from"><fmt:message key="from" bundle="${rb}"/>:</label>
 
         <select name="s_airport_from"  class="form-control" id="sel_airport_from">
             <c:forEach var="airport" items="${sel_airports}">
@@ -45,7 +45,7 @@
         </select>
     </div>
     <div class="form-group">
-        <label for="sel_airport_to">To:</label>
+        <label for="sel_airport_to"><fmt:message key="to" bundle="${rb}"/>:</label>
 
         <select name="s_airport_to"  class="form-control" id="sel_airport_to">
             <c:forEach var="airport" items="${sel_airports}">
@@ -54,32 +54,34 @@
         </select>
     </div>
     <div class="form-group">
-        <label for="flight_time">Flight duration:</label>
+        <label for="flight_time"><fmt:message key="fight.duration" bundle="${rb}"/>:</label>
         <input type="time" id="flight_time" class="form-control" name="flight_time"/>
     </div>
 
     <div class="form-group">
-        <label for="plane">Plane:</label>
+        <label for="plane"><fmt:message key="plane" bundle="${rb}"/>:</label>
         <input type="text" id="plane" class="form-control" name="plane"/>
     </div>
     <div class="form-group">
-        <label for="departure_time">Departure time:</label>
+        <label for="departure_time"><fmt:message key="departure" bundle="${rb}"/>:</label>
         <input type="datetime" id="departure_time" class="form-control" name="departure_time"/>
     </div>
     <div class="form-group">
-        <label for="start_price">Start price:</label>
+        <label for="start_price"><fmt:message key="price" bundle="${rb}"/>:</label>
         <input type="text" id="start_price" class="form-control" name="start_price"/>
     </div>
     <div class="form-group">
-        <label for="start_price_business">Start price for privilege:</label>
+        <label for="start_price_business"><fmt:message key="price.business" bundle="${rb}"/>:</label>
         <input type="text" id="start_price_business" class="form-control" name="start_price_business"/>
     </div>
     <div class="form-group">
-        <label for="tickets_count">Tickets count:</label>
+        <label for="tickets_count"><fmt:message key="tickets.count" bundle="${rb}"/>:</label>
         <input type="text" id="tickets_count" class="form-control" name="tickets_count"/>
     </div>
     <div class="form-group">
-        <input type="submit" class="btn btn-success" value="Add flight">
+
+        <fmt:message key="add.flight" bundle="${rb}" var="add_flight"/>
+        <input type="submit" class="btn btn-success" value="${add_flight}">
     </div>
 
 </form>
@@ -87,21 +89,21 @@
 <div style="margin-top:20px;" class="container col-md-offset-1 col-md-10">
     <div class="panel panel-info">
         <div class="panel-heading ">
-            Routes
+            <fmt:message key="many.flight" bundle="${rb}"/>
         </div>
         <div class="panel-body">
             <table class="table table-hover ">
                 <tr>
-                    <th>Airline</th>
-                    <th>From</th>
-                    <th>To</th>
-                    <th>Flight duration</th>
-                    <th>Plane</th>
-                    <th>Departure time</th>
-                    <th>Start price</th>
-                    <th>Start price for privilege</th>
-                    <th>Tickets count</th>
-                    <th>Available tickets</th>
+                    <th><fmt:message key="airline" bundle="${rb}"/></th>
+                    <th><fmt:message key="from" bundle="${rb}"/></th>
+                    <th><fmt:message key="to" bundle="${rb}"/></th>
+                    <th><fmt:message key="fight.duration" bundle="${rb}"/></th>
+                    <th><fmt:message key="plane" bundle="${rb}"/></th>
+                    <th><fmt:message key="departure" bundle="${rb}"/></th>
+                    <th><fmt:message key="price" bundle="${rb}"/></th>
+                    <th><fmt:message key="price.business" bundle="${rb}"/></th>
+                    <th><fmt:message key="tickets.count" bundle="${rb}"/></th>
+                    <th><fmt:message key="tickets.available" bundle="${rb}"/></th>
                 </tr>
                 <c:forEach items="${flights}" var="flight">
                     <tr>

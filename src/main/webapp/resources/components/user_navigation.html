@@ -1,20 +1,25 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setBundle basename="lang" var="rb" />
 <div class="col-md-3">
     <ul class="nav nav-pills nav-stacked">
         <li>
             <ul class="nav nav-pills nav-stacked">
                 <li id="pers_cab">
-                    <a href="/user/personal_cabinet">Personal information</a>
+                    <a href="/user/personal_cabinet">
+                        <fmt:message key="personal.cabinet" bundle="${rb}"/></a>
                 </li>
 
                 <li id="pers_tick">
                     <a href="/user/personal_tickets">
-                        Personal tickets
+                        <fmt:message key="personal.tickets" bundle="${rb}"/>
                     </a>
                 </li>
 
                 <li id="unpaid_tic">
                     <a href="/user/unpaid_tickets">
-                        Unpaid tickets
+                        <fmt:message key="personal.tickets.unpaid" bundle="${rb}"/>
                     </a>
                 </li>
             </ul>

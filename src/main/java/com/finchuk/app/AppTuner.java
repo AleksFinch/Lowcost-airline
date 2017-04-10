@@ -46,6 +46,7 @@ public class AppTuner {
                 .addPathMap("/register", new RegisterController())
                 .addPathMap("/find_tickets", new FindingTicketsController())
                 .addPathMap("/chosen_flight", new ChosenFlightController())
+                .addPathMap("/lang", new LocaleController())
                 .addPathMap("/user/buy_ticket", new BuyingTicketController())
                 .addPathMap("/user/payment", new PaymentController())
                 .addPathMap("/user/personal_tickets", new PersonalTicketsController())

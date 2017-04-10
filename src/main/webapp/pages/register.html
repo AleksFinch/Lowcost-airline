@@ -15,7 +15,7 @@
             <div class="panel-heading ">
                 <h4><fmt:message key="signup" bundle="${rb}"/></h4>
             </div>
-            <c:if test="${param.error_email}">
+            <c:if test="${param.exist}">
                 <div class="container">
                     <div class=" container alert alert-danger col-md-offset-2 col-md-5 ">
 
@@ -23,10 +23,10 @@
                      </div>
                 </div>
             </c:if>
-            <c:if test="${param.error}">
+            <c:if test="${not empty param.error}">
                 <div class="container">
                     <div class=" container alert alert-danger col-md-offset-2 col-md-5 ">
-                        <fmt:message key="signup.error" bundle="${rb}"/>
+                        <fmt:message key="${param.error}" bundle="${rb}"/>
                     </div>
                 </div>
             </c:if>
@@ -84,7 +84,7 @@
                         </div>
                         
                     </div>
-                    <div class="col-md-offset-2 col-md-1">
+                    <div class="col-md-offset-2 col-md-2">
                         <fmt:message key="signup.action" bundle="${rb}" var="signup_var"/>
                         <input   type = "submit"  class="btn btn-primary btn-block" value="${signup_var}"
                                          id="signUnButton"/>

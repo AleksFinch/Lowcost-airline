@@ -75,7 +75,7 @@ public class MainServletDispatcher extends HttpServlet {
     private Controller getController(String pathInfo) {
         pathInfo = pathInfo.toLowerCase();
         int index = pathInfo.lastIndexOf(PAGE_SUFFIX);
-        if (index + PAGE_SUFFIX.length() == pathInfo.length()) {
+        if (index!=-1&&index + PAGE_SUFFIX.length() == pathInfo.length()) {
             pathInfo = pathInfo.substring(0, index);
         }
         return pathMap.get(pathInfo);

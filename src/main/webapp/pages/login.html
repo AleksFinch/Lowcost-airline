@@ -13,10 +13,7 @@
 <c:import url="/resources/components/navigation.html"/>
 
 
-    <c:if test="${!param.login_error}">
-        <div style="margin: 60px;">
-        </div>
-    </c:if>
+
     <div class="container col-md-8">
         <div class="panel panel-primary col-md-offset-2 ">
             <div class="panel-heading ">
@@ -27,6 +24,13 @@
                     <div class="container">
                         <div class=" container alert alert-danger col-md-offset-2 col-md-5 ">
                             <fmt:message key="login.error.email" bundle="${rb}"/>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${not empty param.error}">
+                    <div class="container">
+                        <div class=" container alert alert-danger col-md-offset-2 col-md-5 ">
+                            <fmt:message key="${param.error}" bundle="${rb}"/>
                         </div>
                     </div>
                 </c:if>
@@ -60,7 +64,7 @@
                                    name="password" autocomplete="off"/>
                         </div>
                     </div>
-                    <div class="col-md-offset-2 col-md-1">
+                    <div class="col-md-offset-2 col-md-2">
                         <fmt:message key="login.action" bundle="${rb}" var="login_action"/>
                         <input type ="submit" class="btn btn-primary btn-block" id="loginButton" value="${login_action}"/>
                     </div>

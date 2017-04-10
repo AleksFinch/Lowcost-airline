@@ -6,7 +6,7 @@
 <head>
     <c:import url="/resources/components/dependencies.html"/>
     <title>
-        <fmt:message key="signup" bundle="${rb}"/>
+        <fmt:message key="ticket.find" bundle="${rb}"/>
     </title>
 </head>
 <body>
@@ -16,28 +16,30 @@
 <form action="/find_tickets" method="get"
       style="margin:50px;" class="form-horizontal">
     <div class="form-group">
+        <fmt:message key="town.enter" bundle="${rb}" var="town_holder" />
         <label for="from_town"
                class="control-label col-md-1">
-            From:
+            <fmt:message key="from" bundle="${rb}"/>:
         </label>
         <div class="col-md-4">
-            <input type="text" placeholder="Enter Town" class="form-control" id="from_town"
+            <input type="text" placeholder="${town_holder}" class="form-control" id="from_town"
                    autocomplete="on" name="from_town"/>
         </div>
         <label for="to_town" class="control-label col-md-1">
-            To:
+            <fmt:message key="to" bundle="${rb}"/>:
         </label>
         <div class="col-md-4">
-            <input type="text" placeholder="Enter Town" class="form-control" id="to_town"
+            <input type="text" placeholder="${town_holder}" class="form-control" id="to_town"
                    autocomplete="on" name="to_town"/>
         </div>
         <div>
-            <input type="submit" class="btn btn-primary" value="Find tickets"/>
+            <fmt:message key="ticket.find" bundle="${rb}" var="find_butt"/>
+            <input type="submit" class="btn btn-primary" value="${find_butt}"/>
         </div>
     </div>
     <div class="form-group">
         <label for="departure_date" class="control-label col-md-1">
-            Date:
+            <fmt:message key="date" bundle="${rb}"/>:
         </label>
         <div class="col-md-2">
             <input type="date" name="dep_time" class="form-control"
@@ -63,14 +65,14 @@
                 <div class="panel-body">
 
                     <div class="col-md-4">
-                        <img src="/resources/images/airlines_pic/logo3.jpg" width="100%"/>
+                        <img src="${flight.route.company.imgPath}" width="100%"/>
                     </div>
 
                     <div class="col-md-8">
                         <table class="table table-hover ">
                             <tr>
                                 <td>
-                                    <b>Route:</b>
+                                    <b><fmt:message key="route" bundle="${rb}"/>:</b>
                                 </td>
                                 <td>
                                     <c:out value="${flight.route.airportFrom.town}"/>
@@ -81,7 +83,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <b>Departure Time:</b><span class="glyphicons glyphicons-address-book"/>
+                                    <b><fmt:message key="departure" bundle="${rb}"/>:</b><span class="glyphicons glyphicons-address-book"/>
                                 </td>
                                 <td>
                                     <c:out value="${flight.departureTime}   "/>

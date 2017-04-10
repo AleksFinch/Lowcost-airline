@@ -97,8 +97,18 @@
 
                     </table>
                     <input type="hidden" name="flight_id" value="${flight.flightId}"/>
-                    <input type="submit" class="btn btn-success btn-block btn-lg" value="Buy ticket"/>
-                </div>
+                    <% request.setAttribute("isLoggedIn", request.getUserPrincipal()); %>
+                    <c:if test="${isLoggedIn!=null}">
+                        <li>
+                            <input type="submit" class="btn btn-success btn-block btn-lg" value="Buy ticket"/>
+                        </li>
+                    </c:if>
+                    <c:if test="${isLoggedIn==null}">
+                        <li>
+                            <a href="/login"  class="btn btn-warning btn-block btn-lg"><h4 > <fmt:message key="login.before.buying" bundle="${rb}"/></title></h4></a>
+                        </li>
+                    </c:if>
+                     </div>
             </form>
         </div>
     </div>

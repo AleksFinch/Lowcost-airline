@@ -17,21 +17,19 @@ public class FindingTicketsController extends Controller {
     FlightService service = ServiceFactory.getFlightService();
     @Override
     public void get(RequestService reqService) {
-        String result = Validator.validateTicketSearching(reqService);
-        if(!result.isEmpty()){
-            reqService.redirect("/find_tickets.html?error="+result);
-            return;
-        }
         String fromTown = reqService.getString("from_town");
         String toTown = reqService.getString("to_town");
         String depTime = reqService.getString("dep_time");
 
-
+        if(fromTown.isEmpty()||toTown.isEmpty()||
+                depTime.isEmpty()){
+            return;
+        }
 
         try {
             reqService.setPageAttribute("found_flights", service.getFlightWithSearching(fromTown,toTown,depTime));
         }catch (DateTimeParseException e){
-            reqService.redirect("/find_tickets.html?error=invalid_date");
+            reqService.redirect("/find_tickets.html?error=invalid.date");
         }
     }
 }
