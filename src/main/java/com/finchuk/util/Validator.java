@@ -70,7 +70,7 @@ public class Validator {
         if (value == null || value.isEmpty()) {
             return "invalid."+name + ".empty";
         }
-        Pattern pattern = Pattern.compile("^[\\w@#$%^&+= ]+$");
+        Pattern pattern = Pattern.compile("^[\\wа-яА-ЯіІїЇ@#$%^&+= ]{1,64}");
         Matcher matcher = pattern.matcher(value);
         if (!matcher.matches()) {
             return "invalid." + name;
@@ -94,7 +94,7 @@ public class Validator {
         if (value == null || value.isEmpty()) {
             return "invalid.password.empty";
         }
-        Pattern pattern = Pattern.compile("^[\\w@#$%^&+=]{6,64}$");
+        Pattern pattern = Pattern.compile("^[а-яА-Я\\wіІїЇ@#$%^&+=]{6,64}$$");
         Matcher matcher = pattern.matcher(value);
         if (!matcher.matches()) {
             return "invalid.password";

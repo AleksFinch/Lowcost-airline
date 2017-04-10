@@ -2,18 +2,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setBundle basename="lang" var="rb" />
+<fmt:setBundle basename="lang" var="rb"/>
 <head>
     <c:import url="/resources/components/dependencies.html"/>
-    <title><fmt:message key="welcome" bundle="${rb}"/></title>
+    <title>
+        <fmt:message key="welcome" bundle="${rb}"/>
+    </title>
 </head>
 <body>
 
 <c:import url="/resources/components/navigation.html"/>
+<div style="margin-top: 50px;" align="center">
+    <h1>
+        <fmt:message key="welcome" bundle="${rb}"/>
+    </h1>
+</div>
 
-<h1 align="center"> <fmt:message key="welcome" bundle="${rb}"/></h1>
-<h2 align="center"> <fmt:message key="slogan" bundle="${rb}"/></h2>
+<div style="margin-top: 20px;" align="center">
+    <a class="btn " href="/find_tickets">
+        <h2 class="glyphicon glyphicon-send">
+            <fmt:message key="slogan" bundle="${rb}"/>
+        </h2>
+    </a>
 
+</div>
 
 </body>
 </html>

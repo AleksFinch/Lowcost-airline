@@ -56,6 +56,7 @@ public class AuthServiceImpl implements AuthService {
         user.setRole(Role.USER);
         user.seteMail(user.geteMail().toLowerCase());
 
+
         synchronized (this){
             User exist = userService.findByEMail(user.geteMail());
             if (exist == null) {

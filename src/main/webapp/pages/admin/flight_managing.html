@@ -55,28 +55,34 @@
     </div>
     <div class="form-group">
         <label for="flight_time"><fmt:message key="fight.duration" bundle="${rb}"/>:</label>
-        <input type="time" id="flight_time" class="form-control" name="flight_time"/>
+        <input type="time" id="flight_time" class="form-control" name="flight_time"
+               required="required" pattern="^([0-1]\d|2[0-3])(:[0-5]\d){1,2}$"/>
     </div>
 
     <div class="form-group">
         <label for="plane"><fmt:message key="plane" bundle="${rb}"/>:</label>
-        <input type="text" id="plane" class="form-control" name="plane"/>
+        <input type="text" id="plane" class="form-control" name="plane"
+               required="required" pattern="^[\wа-яА-ЯіІїЇ@#$%^&+\-= ]{1,32}$"/>
     </div>
     <div class="form-group">
         <label for="departure_time"><fmt:message key="departure" bundle="${rb}"/>:</label>
-        <input type="datetime" id="departure_time" class="form-control" name="departure_time"/>
+        <input type="datetime" id="departure_time" class="form-control" name="departure_time"
+               required="required" pattern="^(19|20)\d\d-((0[1-9]|1[012])-(0[1-9]|[12]\d)|(0[13-9]|1[012])-30|(0[13578]|1[02])-31)T([0-1]\d|2[0-3])(:[0-5]\d){1,2}$"/>
     </div>
     <div class="form-group">
         <label for="start_price"><fmt:message key="price" bundle="${rb}"/>:</label>
-        <input type="text" id="start_price" class="form-control" name="start_price"/>
+        <input type="text" id="start_price" class="form-control" name="start_price"
+               required="required" pattern="^\d{1,7}(\.\d{1,2})?$"/>
     </div>
     <div class="form-group">
         <label for="start_price_business"><fmt:message key="price.business" bundle="${rb}"/>:</label>
-        <input type="text" id="start_price_business" class="form-control" name="start_price_business"/>
+        <input type="text" id="start_price_business" class="form-control" name="start_price_business"
+               required="required" pattern="^\d{1,7}(\.\d{1,2})?$"/>
     </div>
     <div class="form-group">
         <label for="tickets_count"><fmt:message key="tickets.count" bundle="${rb}"/>:</label>
-        <input type="text" id="tickets_count" class="form-control" name="tickets_count"/>
+        <input type="number" id="tickets_count" class="form-control" name="tickets_count"
+               required="required" pattern="^(\d{1,5}$"/>
     </div>
     <div class="form-group">
 
@@ -107,16 +113,16 @@
                 </tr>
                 <c:forEach items="${flights}" var="flight">
                     <tr>
-                        <td>${flight.route.company.companyName}</td>
-                        <td>${flight.route.airportFrom}</td>
-                        <td>${flight.route.airportTo}</td>
-                        <td>${flight.route.flightDuration}</td>
-                        <td>${flight.route.plane}</td>
-                        <td>${flight.departureTime}</td>
-                        <td>${flight.startPrice}</td>
-                        <td>${flight.startPriceForBusiness}</td>
-                        <td>${flight.tickets.size()}</td>
-                        <td>${availableTickets.get(flight)}</td>
+                        <td><c:out value="${flight.route.company.companyName}"/></td>
+                        <td><c:out value="${flight.route.airportFrom}"/></td>
+                        <td><c:out value="${flight.route.airportTo}"/></td>
+                        <td><c:out value="${flight.route.flightDuration}"/></td>
+                        <td><c:out value="${flight.route.plane}"/></td>
+                        <td><c:out value="${flight.departureTime}"/></td>
+                        <td><c:out value="${flight.startPrice}"/></td>
+                        <td><c:out value="${flight.startPriceForBusiness}"/></td>
+                        <td><c:out value="${flight.tickets.size()}"/></td>
+                        <td><c:out value="${availableTickets.get(flight)}"/></td>
                     </tr>
                 </c:forEach>
             </table>

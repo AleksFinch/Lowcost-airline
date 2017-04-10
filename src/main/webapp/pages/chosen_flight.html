@@ -9,18 +9,18 @@
 
     <script src="/resources/js/toggle/bootstrap-toggle.min.js"></script>
     <title>
-        <fmt:message key="signup" bundle="${rb}"/>
+        <fmt:message key="ticket.buying" bundle="${rb}"/>
     </title>
 </head>
 <body>
 
 <c:import url="/resources/components/navigation.html"/>
-<h1 align="center"> Buying ticket </h1>
+<h1 align="center"> <fmt:message key="ticket.buying" bundle="${rb}"/> </h1>
 
 <c:if test="${param.ran_out}">
     <div class="container">
         <div class=" container alert alert-danger col-md-offset-4 col-md-4 ">
-            <h2 align="center"> Sorry, tickets ran out :( </h2>
+            <h2 align="center"> <b><fmt:message key="tickets.out" bundle="${rb}"/></b></h2>
         </div>
     </div>
 </c:if>
@@ -44,7 +44,7 @@
                     <table class="table table-hover ">
                         <tr>
                             <td>
-                                <b>Route:</b>
+                                <b><fmt:message key="route" bundle="${rb}"/>:</b>
                             </td>
                             <td>
                                 <c:out value="${flight.route.airportFrom.town}"/>
@@ -55,7 +55,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <b>Departure Time:</b><span class="glyphicons glyphicons-address-book"/>
+                                <b><fmt:message key="departure" bundle="${rb}"/>:</b><span class="glyphicons glyphicons-address-book"/>
                             </td>
                             <td>
                                 <c:out value="${flight.departureTime}   "/>
@@ -65,7 +65,7 @@
 
                         <tr>
                             <td>
-                                <b>Privilege in place choosing:</b><span class="glyphicons glyphicons-address-book"/>
+                                <b><fmt:message key="privilege" bundle="${rb}"/>:</b><span class="glyphicons glyphicons-address-book"/>
                             </td>
                             <td>
 
@@ -79,16 +79,16 @@
                         </tr>
                         <tr>
                             <td>
-                                <b>With baggage:</b><span class="social social-gmail"/>
+                                <b><fmt:message key="baggage" bundle="${rb}"/>:</b><span class="social social-gmail"/>
                             </td>
                             <td>
                                 <input type="checkbox" name="with_baggage"
-                                       data-toggle="toggle" data-on="with" data-off="without" data-onstyle="success"/>
+                                       data-toggle="toggle" data-on="yes" data-off="no" data-onstyle="success"/>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <b>Price:</b><span class="social social-gmail"/>
+                                <b><fmt:message key="price" bundle="${rb}"/>:</b><span class="social social-gmail"/>
                             </td>
                             <td>
                                 ${flight.startPrice}
@@ -99,8 +99,9 @@
                     <input type="hidden" name="flight_id" value="${flight.flightId}"/>
                     <% request.setAttribute("isLoggedIn", request.getUserPrincipal()); %>
                     <c:if test="${isLoggedIn!=null}">
+                        <fmt:message key="ticket.buy" bundle="${rb}" var="ticket_buy"/>
                         <li>
-                            <input type="submit" class="btn btn-success btn-block btn-lg" value="Buy ticket"/>
+                            <input type="submit" class="btn btn-success btn-block btn-lg" value="${ticket_buy}"/>
                         </li>
                     </c:if>
                     <c:if test="${isLoggedIn==null}">

@@ -28,11 +28,13 @@
     
     <div class="form-group">
         <label for="company"><fmt:message key="company" bundle="${rb}"/>:</label>
-        <input type="text" name="company" class="form-control" id="company"/>
+        <input type="text" name="company" class="form-control" id="company"
+               required="required" pattern="^[\wа-яА-ЯіІїЇ@#$%^&+\-= ]{1,64}$"/>
     </div>
     <div class="form-group">
         <label for="img_path"><fmt:message key="imgpath" bundle="${rb}"/>:</label>
-        <input type="text" name="img_path" class="form-control" id="img_path"/>
+        <input type="text" name="img_path" class="form-control" id="img_path"
+               pattern="^(.{1,500}\.(jpe?g|png))$"/>
     </div>
     <fmt:message key="add.airline" bundle="${rb}" var="add_airline"/>
     <input type="submit" class="btn btn-success" value="${add_airline}">
@@ -52,8 +54,8 @@
                 </tr>
                 <c:forEach items="${airlines}" var="airline">
                     <tr>
-                        <td>${airline.companyName}</td>
-                        <td>${airline.imgPath==null?"null":airline.imgPath.toString()}</td>
+                        <td><c:out value="${airline.companyName}"/></td>
+                        <td><c:out value="${airline.imgPath==null?'null':airline.imgPath.toString()}"/></td>
                     </tr>
                 </c:forEach>
             </table>

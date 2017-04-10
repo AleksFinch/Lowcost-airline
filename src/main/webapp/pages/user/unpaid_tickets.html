@@ -38,7 +38,9 @@
                         <table class="table table-hover ">
                             <tr>
                                 <td>
-                                    <b>Route:</b>
+                                    <b>
+                                        <fmt:message key="route" bundle="${rb}"/>
+                                        :</b>
                                 </td>
                                 <td>
                                     <c:out value="${ticket.flight.route.airportFrom.town}"/>
@@ -49,7 +51,9 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <b>Departure Time:</b><span class="glyphicons glyphicons-address-book"/>
+                                    <b>
+                                        <fmt:message key="departure" bundle="${rb}"/>
+                                        :</b><span class="glyphicons glyphicons-address-book"/>
                                 </td>
                                 <td>
                                     <c:out value="${ticket.flight.departureTime}   "/>
@@ -58,7 +62,9 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <b>Owner:</b><span class="glyphicons glyphicons-address-book"/>
+                                    <b>
+                                        <fmt:message key="owner" bundle="${rb}"/>
+                                        :</b><span class="glyphicons glyphicons-address-book"/>
                                 </td>
                                 <td>
                                     <c:out
@@ -70,29 +76,31 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <b>Place:</b><span class="glyphicons glyphicons-address-book"/>
+                                    <b>
+                                        <fmt:message key="place" bundle="${rb}"/>
+                                        :</b><span class="glyphicons glyphicons-address-book"/>
                                 </td>
                                 <td>
-                                    <c:out value="${ticket.placeNumber}"/>
-
-
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>With baggage:</b><span class="glyphicons glyphicons-address-book"/>
-                                </td>
-                                <td>
-                                    <c:out value="${ticket.withBaggage}"/>
-
-
+                                    <c:out value="${ticket.placeNumber==0?'Economy class':'Business Class'}"/>
                                 </td>
 
                             </tr>
                             <tr>
                                 <td>
-                                    <b>Price:</b><span class="social social-gmai"/>
+                                    <b>
+                                        <fmt:message key="baggage" bundle="${rb}"/>
+                                        :</b><span class="glyphicons glyphicons-address-book"/>
+                                </td>
+                                <td>
+                                    <c:out value="${ticket.withBaggage?'yes':'no'}"/>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>
+                                        <fmt:message key="price" bundle="${rb}"/>
+                                        :</b><span class="social social-gmai"/>
                                 </td>
                                 <td>
                                     <c:out value="${ticket.price} "/>
@@ -110,7 +118,7 @@
 </div>
 
 <script>
-    $("#unpaid_tic").addClass( "active" );
+    $("#unpaid_tic").addClass("active");
 </script>
 </body>
 </html>
