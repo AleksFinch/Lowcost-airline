@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS airline (
   id           BIGINT(11)  NOT NULL AUTO_INCREMENT,
   company_name VARCHAR(64) NOT NULL,
-  img_path     VARCHAR(255),
+  img_path     VARCHAR(512),
   PRIMARY KEY (id)
 );
 
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS ticket (
   place_number INT(11)        NOT NULL,
   price        DECIMAL(10, 2) NOT NULL,
   flight       BIGINT(11)     NOT NULL,
-  owner        BIGINT(11)     NOT NULL,
+  owner        BIGINT(11),
   status       INT(2)         NOT NULL,
   with_baggage BIT            NOT NULL,
   PRIMARY KEY (id),

@@ -16,7 +16,10 @@ public class AppListenner implements ServletContextListener {
     AppTuner app = new AppTuner();
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-
+        //TODO: add comments
+        //TODO: own tag
+        //TODO: free ticket if not bough
+        //TODO: fix entities
         sce.getServletContext().setAttribute("webApplication", app);
         app.setServletContext(sce.getServletContext());
         app.init();

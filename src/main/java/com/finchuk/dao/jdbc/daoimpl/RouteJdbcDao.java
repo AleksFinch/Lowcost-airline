@@ -75,4 +75,18 @@ public class RouteJdbcDao implements RouteDao {
 
     }
 
+    @Override
+    public Route findWhole(Route route) {
+        return helper.findObject("SELECT * FROM route " +
+                "WHERE flight_duration=? AND " +
+                "plane=? AND " +
+                "airport_from = ? AND " +
+                "airport_to=? AND " +
+                "company=?", RouteMapper::map,
+                route.getFlightDuration(),
+                route.getPlane(),
+                route.getAirportFrom().getAirportId(),
+                route.getAirportTo().getAirportId(),
+                route.getCompany().getCompanyId());
+    }
 }

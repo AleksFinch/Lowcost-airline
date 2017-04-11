@@ -17,8 +17,6 @@ public class UserServiceTest {
 
     @Test
     public void find() throws Exception {
-        TicketService userService = TicketService.getInstance();
-        Ticket user = userService.find(2l);
 
     }
 

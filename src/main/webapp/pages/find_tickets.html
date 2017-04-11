@@ -1,0 +1,112 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setBundle basename="lang" var="rb"/>
+<head>
+    <c:import url="/resources/components/dependencies.html"/>
+    <title>
+        <fmt:message key="ticket.find" bundle="${rb}"/>
+    </title>
+</head>
+<body>
+
+<c:import url="/resources/components/navigation.html"/>
+
+<form id="flight_find" action="/find_tickets" method="get"
+      style="margin:50px;" class="form-horizontal">
+    <div class="form-group">
+        <fmt:message key="town.enter" bundle="${rb}" var="town_holder" />
+        <label for="from_town"
+               class="control-label col-md-1">
+            <fmt:message key="from" bundle="${rb}"/>:
+        </label>
+        <div class="col-md-4">
+            <input type="text" placeholder="${town_holder}" class="form-control" id="from_town"
+                   autocomplete="on" required="required" name="from_town"/>
+        </div>
+        <label for="to_town" class="control-label col-md-1">
+            <fmt:message key="to" bundle="${rb}"/>
+            :
+        </label>
+        <div class="col-md-4">
+            <input type="text" placeholder="${town_holder}" class="form-control" id="to_town"
+                   autocomplete="on" required="required" name="to_town"/>
+        </div>
+        <div>
+            <input type="hidden" name="timezone" value="">
+            <fmt:message key="ticket.find" bundle="${rb}" var="find_butt"/>
+            <input type="submit" class="btn btn-primary" value="${find_butt}"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="departure_date" class="control-label col-md-1">
+            <fmt:message key="date" bundle="${rb}"/>:
+        </label>
+        <div class="col-md-2">
+            <input type="date" name="dep_time" class="form-control"
+                   id="departure_date"/>
+
+        </div>
+
+    </div>
+</form>
+
+<div class="container col-md-offset-2 col-md-8">
+    <c:forEach items="${found_flights}" var="flight">
+        <a href="/chosen_flight?id=${flight.flightId}">
+
+
+            <div class="panel panel-primary ">
+
+                <div class="panel-heading">
+                    <c:out value="${flight.route.company.companyName}"/>
+                </div>
+
+
+                <div class="panel-body">
+
+                    <div class="col-md-4">
+                        <img src="${flight.route.company.imgPath}" width="100%"/>
+                    </div>
+
+                    <div class="col-md-8">
+                        <table class="table table-hover ">
+                            <tr>
+                                <td>
+                                    <b><fmt:message key="route" bundle="${rb}"/>:</b>
+                                </td>
+                                <td>
+                                    <c:out value="${flight.route.airportFrom.town}"/>
+
+                                    <c:out value=" - ${flight.route.airportTo.town}"/>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b><fmt:message key="departure" bundle="${rb}"/>:</b><span class="glyphicons glyphicons-address-book"/>
+                                </td>
+                                <td class="date-time-out">
+                                    <c:out value="${flight.departureTime}   "/>
+                                </td>
+
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </c:forEach>
+</div>
+<script src="/resources/js/date_formatter.js"></script>
+<script>
+    $('#flight_find').submit(function () {
+        $("input[name=timezone]").each(function (i, item) {
+            item.value = (new Date().getTimezoneOffset());
+        });
+    });
+</script>
+</body>
+</html>

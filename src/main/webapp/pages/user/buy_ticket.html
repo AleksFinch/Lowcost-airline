@@ -1,0 +1,41 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setBundle basename="lang" var="rb"/>
+<head>
+    <c:import url="/resources/components/dependencies.html"/>
+    <title>
+        <fmt:message key="signup" bundle="${rb}"/>
+    </title>
+</head>
+<body>
+
+<c:import url="/resources/components/navigation.html"/>
+<h1 align="center"> Buying ticket </h1>
+<h1 align="center"> Total price: ${price} </h1>
+<div class="container col-md-offset-4 col-md-4">
+
+    <div class="col-md-12">
+        <form action="/user/payment" method="post">
+            <input type="hidden" name="ticket_id" value="${ticket.ticketId}">
+            <input type="hidden" name="result" value="success">
+            <input type="submit" class="btn btn-success btn-lg btn-block" value="Pay for ticket"/>
+        </form>
+    </div>
+
+    <div class="col-md-12">
+        <form action="/user/payment" method="post">
+            <input type="hidden" name="ticket_id" value="${ticket.ticketId}">
+            <input type="hidden" name="result" value="fail">
+            <input type="submit" class="btn btn-danger btn-lg btn-block" value="Reject payment"/>
+        </form>
+    </div>
+
+
+
+
+</div>
+
+</body>
+</html>

@@ -18,7 +18,7 @@ public class SecurityContainer {
 
     private List<RoleConstraint> constraints = new ArrayList<>();
 
-    public static final String LOGIN_PAGE = "/login.html";
+    public static final String LOGIN_PAGE = "/login";
 
     private SecurityContainer() {
     }

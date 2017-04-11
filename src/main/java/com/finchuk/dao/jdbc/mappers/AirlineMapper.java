@@ -5,6 +5,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,9 +28,9 @@ public class AirlineMapper {
                     .ofNullable(resultSet.getString("img_path"))
                     .map((e) -> {
                         try {
-                            return new URL(e);
-                        } catch (MalformedURLException e1) {
-                            LogManager.getLogger().error("invalid URL");
+                            return new URI(e);
+                        } catch (URISyntaxException e1) {
+                            LogManager.getLogger().error("invalid URI");
                             return null;
                         }
                     })

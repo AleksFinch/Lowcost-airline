@@ -22,7 +22,7 @@ public abstract class AbstractJdbcDaoTest<T, PK extends Serializable> {
 
     @BeforeClass
     public static void init() {
-        DBInitializer.initH2();
+        DBInitializer.initMySql();
     }
 
     @Before

@@ -23,7 +23,7 @@ public class MainServletDispatcher extends HttpServlet {
     public static final String REDIRECT_KEY = "__redirect";
     public static final String HEADER_REFERRER = "Referer";
 
-    private HashMap<String,Controller> pathMap = new HashMap<>();
+    private HashMap<String, Controller> pathMap = new HashMap<>();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,37 +40,42 @@ public class MainServletDispatcher extends HttpServlet {
         dispatch(req, resp);
     }
 
-    private void dispatch(HttpServletRequest req, HttpServletResponse resp){
-        String pathInfo = req.getPathInfo();
+    private void dispatch(HttpServletRequest req, HttpServletResponse resp) {
+        try {
+            String pathInfo = req.getPathInfo();
 
-        if(pathInfo==null){
-            pathInfo="/";
+
+            if (pathInfo == null) {
+                pathInfo = "/";
+            }
+            Controller controller = getController(pathInfo);
+            RequestService requestService = new RequestService(req, resp);
+            Optional.ofNullable(controller).ifPresent(e -> e.execute(requestService));
+            if (!tryRedirect(requestService)) {
+                tryRender(req, resp, requestService);
+            }
+            if (requestService.isRedirect()) {
+                requestService.clearRedirectFlag();
+            } else {
+                //TODO: release flash
+            }
+
+            //TODO: release resources
+
+        } catch (Exception e) {
+            LOGGER.error("something wrong", e);
+            throw e;
         }
-        Controller controller = getController(pathInfo);
-        RequestService requestService = new RequestService(req,resp);
-        Optional.ofNullable(controller).ifPresent(e->e.execute(requestService));
-        if(!tryRedirect(requestService)){
-            tryRender(req,resp,requestService);
-        }
-        if(requestService.isRedirect()){
-            requestService.clearRedirectFlag();
-        }else{
-            //TODO: release flash
-        }
-
-       //TODO: release resources
-
-
     }
 
     public void addMapping(String url, Controller controller) {
-        pathMap.put(url.toLowerCase(),controller);
+        pathMap.put(url.toLowerCase(), controller);
     }
 
-    private Controller getController(String pathInfo){
+    private Controller getController(String pathInfo) {
         pathInfo = pathInfo.toLowerCase();
         int index = pathInfo.lastIndexOf(PAGE_SUFFIX);
-        if (index + PAGE_SUFFIX.length() == pathInfo.length()) {
+        if (index!=-1&&index + PAGE_SUFFIX.length() == pathInfo.length()) {
             pathInfo = pathInfo.substring(0, index);
         }
         return pathMap.get(pathInfo);
@@ -100,10 +105,14 @@ public class MainServletDispatcher extends HttpServlet {
         } else {
             try {
                 if (req.getMethod().equals("GET")) {
-                    req.getRequestDispatcher("/pages/" + appendSuffix(req.getPathInfo()))
-                            .forward(req, resp);
+                    if (resp.getStatus() >= 200 && resp.getStatus() < 300) {
+                        req.getRequestDispatcher("/pages/" + appendSuffix(req.getPathInfo()))
+                                .forward(req, resp);
+                    }
                 } else if (req.getHeader(HEADER_REFERRER) != null) {
-                    resp.sendRedirect(req.getHeader(HEADER_REFERRER));
+                    if (resp.getStatus() >= 200 && resp.getStatus() < 300) {
+                        resp.sendRedirect(req.getHeader(HEADER_REFERRER));
+                    }
                 }
             } catch (ServletException | IOException e) {
                 LOGGER.warn("An exception happened at page rendering phase");

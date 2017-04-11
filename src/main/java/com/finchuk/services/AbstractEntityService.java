@@ -14,9 +14,10 @@ public abstract class AbstractEntityService<T, PK extends Serializable> {
     protected Dao<T, PK> dao;
 
 
-    public void add(T t) {
+    public boolean add(T t) {
         PK key = dao.add(t);
         setId(t, key);
+        return true;
     }
 
     public T find(PK id) {
@@ -39,7 +40,7 @@ public abstract class AbstractEntityService<T, PK extends Serializable> {
         dao.delete(id);
     }
 
-    List<T> findAll() {
+    public List<T> findAll() {
         List<T> list = new ArrayList<>();
         Transaction.doTransaction(() -> {
             list.addAll(dao.findAll());

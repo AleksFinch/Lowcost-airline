@@ -1,0 +1,26 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setBundle basename="lang" var="rb" />
+<div class="col-md-3">
+
+    <ul class="nav nav-pills nav-stacked">
+        <li id="man_airport">
+            <a href="/admin/airport_managing">
+                <fmt:message key="manage.airport" bundle="${rb}"/>
+            </a>
+        </li>
+
+        <li id="man_airline">
+            <a href="/admin/airline_managing">
+                <fmt:message key="manage.airline" bundle="${rb}"/>
+            </a>
+        </li>
+        <li id="man_flight">
+            <a href="/admin/flight_managing">
+                <fmt:message key="manage.flight" bundle="${rb}"/>
+            </a>
+        </li>
+    </ul>
+
+</div>

@@ -4,7 +4,13 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
+    <jsp-config>
 
+        <jsp-property-group>
+            <url-pattern>*.html</url-pattern>
+        </jsp-property-group>
+
+    </jsp-config>
     <resource-ref>
         <description>D</description>
         <res-ref-name>jdbc/lowcost</res-ref-name>
@@ -24,5 +30,9 @@
     <error-page>
         <error-code>404</error-code>
         <location>/pages/error/404not_found.html</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/pages/error/access_denied.html</location>
     </error-page>
 </web-app>

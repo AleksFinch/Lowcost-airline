@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setBundle basename="lang" var="rb" />
 <head>
-    <meta charset="UTF-8">
-    <title>myServlet</title>
+    <c:import url="/resources/components/dependencies.html"/>
+    <title><fmt:message key="invalid.not.found" bundle="${rb}"/></title>
 </head>
 <body>
-this page doesn't exist
+
+<c:import url="/resources/components/navigation.html"/>
+<h1 align="center"><fmt:message key="invalid.not.found" bundle="${rb}"/></h1>
+
 </body>
 </html>

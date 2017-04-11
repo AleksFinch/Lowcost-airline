@@ -7,4 +7,5 @@ import com.finchuk.entities.Route;
  */
 public interface RouteDao extends Dao<Route, Long> {
 
+    Route findWhole(Route route);
 }

@@ -36,7 +36,7 @@ public interface Transaction {
                 connection.setTransactionIsolation(oldIsolation);
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException | RuntimeSqlException e) {
             LOGGER.error("transaction failed", e);
             try {
                 connection.rollback();

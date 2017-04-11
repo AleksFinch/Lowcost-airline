@@ -1,0 +1,144 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setBundle basename="lang" var="rb"/>
+<html>
+<head>
+    <c:import url="/resources/components/dependencies.html"/>
+    <title>
+        <fmt:message key="manage.flight" bundle="${rb}"/>
+    </title>
+</head>
+<body>
+
+<c:import url="/resources/components/navigation.html"/>
+
+
+<c:import url="/resources/components/admin_navigation.html"/>
+
+<c:if test="${not empty param.error}">
+    <div>
+        <div class=" container alert alert-danger col-md-5 ">
+            <fmt:message key="${param.error}" bundle="${rb}"/>
+        </div>
+    </div>
+</c:if>
+<form id="flight_input" class="col-md-5" action="/admin/flight_managing" method="post">
+
+    <div class="form-group">
+        <label for="sel_airline"><fmt:message key="airline" bundle="${rb}"/>:</label>
+
+        <select name="s_airline"  class="form-control" id="sel_airline">
+            <c:forEach var="airline" items="${sel_airlines}">
+                <option value="${airline.companyId}">${airline.companyName}</option>
+            </c:forEach>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="sel_airport_from"><fmt:message key="from" bundle="${rb}"/>:</label>
+
+        <select name="s_airport_from"  class="form-control" id="sel_airport_from">
+            <c:forEach var="airport" items="${sel_airports}">
+                <option value="${airport.airportId}">${airport}</option>
+            </c:forEach>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="sel_airport_to"><fmt:message key="to" bundle="${rb}"/>:</label>
+
+        <select name="s_airport_to"  class="form-control" id="sel_airport_to">
+            <c:forEach var="airport" items="${sel_airports}">
+                <option value="${airport.airportId}">${airport}</option>
+            </c:forEach>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="flight_time"><fmt:message key="fight.duration" bundle="${rb}"/>:</label>
+        <input type="time" id="flight_time" class="form-control" name="flight_time"
+               required="required" pattern="^([0-1]\d|2[0-3])(:[0-5]\d){1,2}$"/>
+    </div>
+
+    <div class="form-group">
+        <label for="plane"><fmt:message key="plane" bundle="${rb}"/>:</label>
+        <input type="text" id="plane" class="form-control  nameInput" name="plane"
+               required="required" pattern="^[\wа-яА-ЯіІїЇ@#$%^&+\-= ]{1,32}$"/>
+    </div>
+    <div class="form-group">
+        <label for="departure_time"><fmt:message key="departure" bundle="${rb}"/>:</label>
+        <input type="datetime-local" id="departure_time" class="form-control" name="departure_time"
+               required="required" pattern="^(19|20)\d\d-((0[1-9]|1[012])-(0[1-9]|[12]\d)|(0[13-9]|1[012])-30|(0[13578]|1[02])-31)T([0-1]\d|2[0-3])(:[0-5]\d){1,2}$"/>
+    </div>
+    <div class="form-group">
+        <label for="start_price"><fmt:message key="price" bundle="${rb}"/>:</label>
+        <input type="text" id="start_price" class="form-control priceInput" name="start_price"
+               required="required" pattern="^\d{1,7}(\.\d{1,2})?$"/>
+    </div>
+    <div class="form-group">
+        <label for="start_price_business"><fmt:message key="price.business" bundle="${rb}"/>:</label>
+        <input type="text" id="start_price_business" class="form-control priceInput" name="start_price_business"
+               required="required" pattern="^\d{1,7}(\.\d{1,2})?$"/>
+    </div>
+    <div class="form-group">
+        <label for="tickets_count"><fmt:message key="tickets.count" bundle="${rb}"/>:</label>
+        <input type="number" id="tickets_count" class="form-control " name="tickets_count"
+               required="required" pattern="^(\d{1,5}$"/>
+    </div>
+    <div class="form-group">
+
+        <fmt:message key="add.flight" bundle="${rb}" var="add_flight"/>
+        <input type="submit" id="form_submit" class="btn btn-success" value="${add_flight}">
+    </div>
+
+</form>
+
+<div style="margin-top:20px;" class="container col-md-offset-1 col-md-10">
+    <div class="panel panel-info">
+        <div class="panel-heading ">
+            <fmt:message key="many.flight" bundle="${rb}"/>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover ">
+                <tr>
+                    <th><fmt:message key="airline" bundle="${rb}"/></th>
+                    <th><fmt:message key="from" bundle="${rb}"/></th>
+                    <th><fmt:message key="to" bundle="${rb}"/></th>
+                    <th><fmt:message key="fight.duration" bundle="${rb}"/></th>
+                    <th><fmt:message key="plane" bundle="${rb}"/></th>
+                    <th><fmt:message key="departure" bundle="${rb}"/></th>
+                    <th><fmt:message key="price" bundle="${rb}"/></th>
+                    <th><fmt:message key="price.business" bundle="${rb}"/></th>
+                    <th><fmt:message key="tickets.count" bundle="${rb}"/></th>
+                    <th><fmt:message key="tickets.available" bundle="${rb}"/></th>
+                </tr>
+                <c:forEach items="${flights}" var="flight">
+                    <tr>
+                        <td><c:out value="${flight.route.company.companyName}"/></td>
+                        <td><c:out value="${flight.route.airportFrom}"/></td>
+                        <td><c:out value="${flight.route.airportTo}"/></td>
+                        <td><c:out value="${flight.route.flightDuration}"/></td>
+                        <td><c:out value="${flight.route.plane}"/></td>
+                        <td class="date-time-out"></pre>
+                            <c:out value="${flight.departureTime}"/>
+                        </td>
+                        <td><c:out value="${flight.startPrice}"/></td>
+                        <td><c:out value="${flight.startPriceForBusiness}"/></td>
+                        <td><c:out value="${flight.tickets.size()}"/></td>
+                        <td><c:out value="${availableTickets.get(flight)}"/></td>
+                    </tr>
+                </c:forEach>
+            </table>
+
+        </div>
+    </div>
+</div>
+<script>
+    $("#man_flight").addClass( "active" );
+</script>
+<script src="/resources/js/validation.js"></script>
+<script src="/resources/js/date_validator.js"></script>
+<script src="/resources/js/date_formatter.js">
+
+</script>
+</body>
+</html>
