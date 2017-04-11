@@ -7,23 +7,32 @@ import com.finchuk.entities.Flight;
 import com.finchuk.entities.Route;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Created by root on 08.04.17.
  */
 public class RequestMapper {
     public static Route mapRoute(RequestService reqService){
-        String flight_duration = reqService.getString("flight_time");
+        String flightDuration = reqService.getString("flight_time");
         String plane = reqService.getString("plane");
         String airportFrom = reqService.getString("s_airport_from");
         String airportTo = reqService.getString("s_airport_to");
-        Long company = Long.valueOf(reqService.getString("s_airline"));
-
-        LocalTime time = LocalTime.parse(flight_duration, DateTimeFormatter.ofPattern("H:mm"));
+        Long company;
+        try {
+            company = Long.valueOf(reqService.getString("s_airline"));
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("invalid.company");
+        }
+        LocalTime time;
+        try {
+            time = LocalTime.parse(flightDuration, DateTimeFormatter.ofPattern("HH:mm"));
+        } catch (DateTimeParseException | NullPointerException e) {
+            throw new DateTimeParseException("invalid.duration", flightDuration, 0);
+        }
 
         Route route = new Route();
         route.setFlightDuration(time);
@@ -43,11 +52,25 @@ public class RequestMapper {
     public static Flight mapFlight(RequestService reqService){
         Route route = mapRoute(reqService);
 
-        String departureTime = reqService.getString("departure_time");
-        BigDecimal startPrice = new BigDecimal(reqService.getString("start_price"));
-        BigDecimal startPriceForBusiness = new BigDecimal(reqService.getString("start_price_business"));
 
-        LocalDateTime time = LocalDateTime.parse(departureTime, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+        String departureTime = reqService.getString("departure_time");
+        BigDecimal startPrice;
+        BigDecimal startPriceForBusiness;
+
+        try {
+            startPrice = new BigDecimal(reqService.getString("start_price"));
+            startPriceForBusiness = new BigDecimal(reqService.getString("start_price_business"));
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("invalid.price");
+        }
+
+        LocalDateTime time;
+        try {
+
+            time = LocalDateTime.parse(departureTime, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+        } catch (DateTimeParseException | NullPointerException e) {
+            throw new DateTimeParseException("invalid.departure", departureTime, 0);
+        }
 
         Flight flight = new Flight();
         flight.setRoute(route);
@@ -55,6 +78,18 @@ public class RequestMapper {
         flight.setStartPrice(startPrice);
         flight.setStartPriceForBusiness(startPriceForBusiness);
         return flight;
+    }
+
+
+    public static Airport mapAirport(RequestService reqService) {
+        String airportId = reqService.getString("airport_id");
+        String country = reqService.getString("country");
+        String town = reqService.getString("town");
+        Airport airport = new Airport();
+        airport.setAirportId(airportId);
+        airport.setCountry(country);
+        airport.setTown(town);
+        return airport;
     }
 
 

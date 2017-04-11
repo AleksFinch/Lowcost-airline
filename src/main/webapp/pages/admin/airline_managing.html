@@ -28,8 +28,8 @@
     
     <div class="form-group">
         <label for="company"><fmt:message key="company" bundle="${rb}"/>:</label>
-        <input type="text" name="company" class="form-control" id="company"
-               required="required" pattern="^[\wа-яА-ЯіІїЇ@#$%^&+\-= ]{1,64}$"/>
+        <input type="text" name="company" class="form-control  nameInput" id="company"
+               required="required" pattern="^[\wа-яА-ЯіІїЇ@#$%^&+\-= ]{1,20}$"/>
     </div>
     <div class="form-group">
         <label for="img_path"><fmt:message key="imgpath" bundle="${rb}"/>:</label>
@@ -67,6 +67,6 @@
 <script>
     $("#man_airline").addClass( "active" );
 </script>
-
+<script src="/resources/js/validation.js"></script>
 </body>
 </html>

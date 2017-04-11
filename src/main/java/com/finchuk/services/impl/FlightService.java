@@ -11,7 +11,10 @@ import com.finchuk.services.AbstractEntityService;
 import com.finchuk.services.factory.ServiceFactory;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -42,9 +45,16 @@ public class FlightService extends AbstractEntityService<Flight, Long> {
     }
 
 
-    public List<Flight> getFlightWithSearching(String townFrom, String townTo, String depDate) {
+    public List<Flight> getFlightWithSearching(String townFrom, String townTo, String depDate, String timezone) {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate date = LocalDate.parse(depDate, format);
+        int timez = Integer.valueOf(timezone);
+
+        LocalDateTime date = LocalDate.parse(depDate, format).atStartOfDay();
+        date = date.plusMinutes(timez);
+        LocalDateTime dateNow = LocalDateTime.now(ZoneOffset.UTC);
+        if (dateNow.isAfter(date)) {
+            return Collections.emptyList();
+        }
         List<Flight> tickets = ((FlightDao) dao).getFlightsByParams(townFrom.toLowerCase(),townTo.toLowerCase(),date);
         tickets.forEach(e->loadTails(e));
         return tickets;

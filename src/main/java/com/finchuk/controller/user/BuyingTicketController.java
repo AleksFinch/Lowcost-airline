@@ -10,9 +10,6 @@ import com.finchuk.services.impl.PaymentService;
 import com.finchuk.services.impl.TicketService;
 import com.finchuk.util.Validator;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
 /**
  * Created by root on 09.04.17.
  */
@@ -60,7 +57,7 @@ public class BuyingTicketController extends Controller {
 
 
         if (ticket == null) {
-            reqService.redirect("/chosen_flight?id=" + id + "&ran_out=true");
+            reqService.redirect("/chosen_flight");
         } else {
 
             reqService.redirect("/user/buy_ticket?id=" + ticket.getTicketId());

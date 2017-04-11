@@ -15,12 +15,16 @@
 <body>
 
 <c:import url="/resources/components/navigation.html"/>
-<h1 align="center"> <fmt:message key="ticket.buying" bundle="${rb}"/> </h1>
+<h1 align="center">
+    <fmt:message key="ticket.buying" bundle="${rb}"/>
+</h1>
 
-<c:if test="${param.ran_out}">
+<c:if test="${ranOut}">
     <div class="container">
         <div class=" container alert alert-danger col-md-offset-4 col-md-4 ">
-            <h2 align="center"> <b><fmt:message key="tickets.out" bundle="${rb}"/></b></h2>
+            <h2 align="center"><b>
+                <fmt:message key="tickets.out" bundle="${rb}"/>
+            </b></h2>
         </div>
     </div>
 </c:if>
@@ -44,7 +48,9 @@
                     <table class="table table-hover ">
                         <tr>
                             <td>
-                                <b><fmt:message key="route" bundle="${rb}"/>:</b>
+                                <b>
+                                    <fmt:message key="route" bundle="${rb}"/>
+                                    :</b>
                             </td>
                             <td>
                                 <c:out value="${flight.route.airportFrom.town}"/>
@@ -55,9 +61,11 @@
                         </tr>
                         <tr>
                             <td>
-                                <b><fmt:message key="departure" bundle="${rb}"/>:</b><span class="glyphicons glyphicons-address-book"/>
+                                <b>
+                                    <fmt:message key="departure" bundle="${rb}"/>
+                                    :</b><span class="glyphicons glyphicons-address-book"/>
                             </td>
-                            <td>
+                            <td id="departure" class="date-time-out">
                                 <c:out value="${flight.departureTime}   "/>
                             </td>
 
@@ -65,12 +73,14 @@
 
                         <tr>
                             <td>
-                                <b><fmt:message key="privilege" bundle="${rb}"/>:</b><span class="glyphicons glyphicons-address-book"/>
+                                <b>
+                                    <fmt:message key="privilege" bundle="${rb}"/>
+                                    :</b><span class="glyphicons glyphicons-address-book"/>
                             </td>
                             <td>
 
 
-                                <input type="checkbox" name="privilege"
+                                <input type="checkbox" name="privilege" id="privilege"
                                        data-toggle="toggle" data-on="Business class" data-off="Economy class"
                                        data-onstyle="success"/>
 
@@ -79,19 +89,24 @@
                         </tr>
                         <tr>
                             <td>
-                                <b><fmt:message key="baggage" bundle="${rb}"/>:</b><span class="social social-gmail"/>
+                                <b>
+                                    <fmt:message key="baggage" bundle="${rb}"/>
+                                    :</b><span class="social social-gmail"/>
                             </td>
                             <td>
-                                <input type="checkbox" name="with_baggage"
+                                <input type="checkbox" name="with_baggage" id="with_baggage"
                                        data-toggle="toggle" data-on="yes" data-off="no" data-onstyle="success"/>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <b><fmt:message key="price" bundle="${rb}"/>:</b><span class="social social-gmail"/>
+                                <b>
+                                    <fmt:message key="price" bundle="${rb}"/>
+                                    :</b><span class="social social-gmail"/>
                             </td>
-                            <td>
-                                ${flight.startPrice}
+                            <td id="total_price">
+                                <fmt:formatNumber type="number"
+                                                  pattern="###.00" value="${flight.startPrice}"/>
                             </td>
                         </tr>
 
@@ -99,22 +114,92 @@
                     <input type="hidden" name="flight_id" value="${flight.flightId}"/>
                     <% request.setAttribute("isLoggedIn", request.getUserPrincipal()); %>
                     <c:if test="${isLoggedIn!=null}">
-                        <fmt:message key="ticket.buy" bundle="${rb}" var="ticket_buy"/>
-                        <li>
-                            <input type="submit" class="btn btn-success btn-block btn-lg" value="${ticket_buy}"/>
-                        </li>
+                        <c:if test="${empty ranOut}">
+                            <fmt:message key="ticket.buy" bundle="${rb}" var="ticket_buy"/>
+                            <li>
+                                <input type="submit" class="btn btn-success btn-block btn-lg" value="${ticket_buy}"/>
+                            </li>
+                        </c:if>
+
                     </c:if>
                     <c:if test="${isLoggedIn==null}">
                         <li>
-                            <a href="/login"  class="btn btn-warning btn-block btn-lg"><h4 > <fmt:message key="login.before.buying" bundle="${rb}"/></title></h4></a>
+                            <a href="/login" class="btn btn-warning btn-block btn-lg">
+                                <h4>
+                                    <fmt:message key="login.before.buying" bundle="${rb}"/>
+                                    </title></h4>
+                            </a>
                         </li>
                     </c:if>
-                     </div>
+                </div>
             </form>
         </div>
     </div>
 
 </div>
+<script>
+    var time = new Date(Date.parse('${flight.departureTime}'));
+    var startPrice = ${flight.startPrice};
+    var startPriceBusiness = ${flight.startPriceForBusiness};
+    var avilablePlace = ${availablePlace};
+    var flightPlace = ${flight.tickets.size()};
+    function updatePrice() {
+        if (avilablePlace == 0) {
+            $('#total_price').text(0);
+            return;
+        }
+        var currTime = new Date(Date.now());
+        var avTime = availableTimeInPercents(time, currTime);
+        var privilege = $('#privilege').is(':checked');
+        var newPrice = privilege ? startPriceBusiness : startPrice;
+        newPrice = newPrice * (1 + 1 - avTime);
+        var withBaggage = $('#with_baggage').is(':checked');
+        newPrice = newPrice * (withBaggage ? 2.5 : 1);
+        var avilablePlaceInPercent = avilablePlace / flightPlace;
+        newPrice = newPrice * (1 + 1 - avilablePlaceInPercent);
 
+        $('#total_price').text(newPrice.toFixed(2));
+    };
+    function availableTimeInPercents(time, currTime) {
+
+        var oldDate = new Date(time);
+        oldDate.setMonth(oldDate.getMonth() - 3);
+
+        var firstDiff = diffDate(currTime, time)
+
+        if (firstDiff <= 0) {
+            return 2;
+        }
+        var secDiff = diffDate(oldDate, time);
+        firstDiff = Math.min(firstDiff, secDiff);
+        return firstDiff / secDiff;
+
+    }
+    function diffDate(time1, time2) {
+        var utc1 = Date.UTC(time1.getFullYear(),
+            time1.getMonth(),
+            time1.getDate(),
+            time1.getHours(),
+            time1.getMinutes());
+        var utc2 = Date.UTC(time2.getFullYear(),
+            time2.getMonth(),
+            time2.getDate(),
+            time2.getHours(),
+            time2.getMinutes());
+
+        return Math.floor((utc2 - utc1) / 1000 * 60);
+    };
+    $(document).ready(function () {
+        $('#privilege').change(() = > {updatePrice()}
+        )
+        ;
+        $('#with_baggage').change(() = > {updatePrice()}
+        )
+        ;
+        setInterval(updatePrice(), 1000)
+
+    });
+</script>
+<script src="/resources/js/date_formatter.js"></script>
 </body>
 </html>

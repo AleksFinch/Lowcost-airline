@@ -2,16 +2,17 @@ package com.finchuk.controller.admin;
 
 import com.finchuk.controller.Controller;
 import com.finchuk.controller.RequestService;
-import com.finchuk.entities.*;
+import com.finchuk.entities.Airline;
+import com.finchuk.entities.Airport;
+import com.finchuk.entities.Flight;
 import com.finchuk.services.factory.ServiceFactory;
 import com.finchuk.services.impl.AirlineService;
 import com.finchuk.services.impl.AirportService;
 import com.finchuk.services.impl.FlightService;
-import com.finchuk.services.impl.RouteService;
 import com.finchuk.util.RequestMapper;
+import com.finchuk.util.Validator;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,9 +43,20 @@ public class FlightsManagmentController extends Controller {
 
     @Override
     public void post(RequestService reqService) {
-        Flight flight = RequestMapper.mapFlight(reqService);
-        Integer ticketsCount = Integer.valueOf(reqService.getString("tickets_count"));
-        flightService.addFlightWithTickets(flight,ticketsCount);
-        reqService.redirect("/admin/flight_managing");
+        String result = Validator.validateFlight(reqService);
+        if (!result.isEmpty()) {
+            reqService.redirect("/admin/flight_managing.html?error=" + result);
+            return;
+        }
+        try {
+            Flight flight = RequestMapper.mapFlight(reqService);
+            Integer ticketsCount = Integer.valueOf(reqService.getString("tickets_count"));
+            flightService.addFlightWithTickets(flight, ticketsCount);
+            reqService.redirect("/admin/flight_managing");
+        } catch (NumberFormatException | DateTimeParseException e) {
+            reqService.redirect("/admin/flight_managing.html?error=" + e.getMessage());
+            return;
+        }
+
     }
 }

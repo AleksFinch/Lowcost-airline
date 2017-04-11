@@ -3,15 +3,12 @@ package com.finchuk.controller.admin;
 import com.finchuk.controller.Controller;
 import com.finchuk.controller.RequestService;
 import com.finchuk.entities.Airline;
-import com.finchuk.entities.Airport;
 import com.finchuk.services.factory.ServiceFactory;
 import com.finchuk.services.impl.AirlineService;
-import com.finchuk.services.impl.AirportService;
+import com.finchuk.util.Validator;
 
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.List;
 
 /**
@@ -27,16 +24,19 @@ public class AirlinesManagmentController extends Controller {
 
     @Override
     public void post(RequestService reqService) {
+        String result = Validator.validateAirline(reqService);
+        if (!result.isEmpty()) {
+            reqService.redirect("/admin/flight_managing.html?error=" + result);
+            return;
+        }
         String company = reqService.getString("company");
         String imgPath = reqService.getString("img_path");
 
-        //TODO: validate
-        //TODO: Map in another class
-        URI url = null;
+        URI url;
         try {
             url = new URI(imgPath);
         } catch (URISyntaxException e) {
-            reqService.redirect("/admin/airline_managing?invalid_path=true");
+            reqService.redirect("/admin/airline_managing?error=invalid.imgpath");
             return;
         }
         Airline airline = new Airline();

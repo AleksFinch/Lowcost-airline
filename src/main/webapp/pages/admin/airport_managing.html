@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setBundle basename="lang" var="rb" xmlns:c="http://www.w3.org/1999/html"/>
+<fmt:setBundle basename="lang" var="rb"/>
 <html>
 <head>
     <c:import url="/resources/components/dependencies.html"/>
@@ -27,17 +27,17 @@
 <form class="col-md-5" action="/admin/airport_managing" method="post">
     <div class="form-group">
         <label for="airport_id"><fmt:message key="airport.id" bundle="${rb}"/>:</label>
-        <input type="text" name="airport_id" class="form-control" id="airport_id"
-               required="required" pattern="^[\wа-яА-ЯіІїЇ@#$%^&+\-= ]{1,20}$/>
+        <input type="text" name="airport_id" class="form-control  nameInput" id="airport_id"
+               required="required" pattern="^[\wа-яА-ЯіІїЇ@#$%^&+\-= ]{1,20}$"/>
     </div>
     <div class="form-group">
         <label for="country"><fmt:message key="country" bundle="${rb}"/>:</label>
-        <input type="text" name="country" class="form-control" id="country"
+        <input type="text" name="country" class="form-control  nameInput" id="country"
                required="required" pattern="^[\wа-яА-ЯіІїЇ@#$%^&+\-= ]{1,64}$"/>
     </div>
     <div class="form-group">
         <label for="town"><fmt:message key="town" bundle="${rb}"/>:</label>
-        <input type="text" name="town" class="form-control" id="town"
+        <input type="text" name="town" class="form-control  nameInput" id="town"
                required="required" pattern="^[\wа-яА-ЯіІїЇ@#$%^&+\-= ]{1,64}$"/>
     </div>
     <fmt:message key="add.airport" bundle="${rb}" var="add_airport"/>
@@ -73,5 +73,6 @@
 <script>
     $("#man_airport").addClass( "active" );
 </script>
+<script src="/resources/js/validation.js"></script>
 </body>
 </html>

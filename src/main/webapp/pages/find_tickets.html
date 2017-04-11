@@ -13,7 +13,7 @@
 
 <c:import url="/resources/components/navigation.html"/>
 
-<form action="/find_tickets" method="get"
+<form id="flight_find" action="/find_tickets" method="get"
       style="margin:50px;" class="form-horizontal">
     <div class="form-group">
         <fmt:message key="town.enter" bundle="${rb}" var="town_holder" />
@@ -23,16 +23,18 @@
         </label>
         <div class="col-md-4">
             <input type="text" placeholder="${town_holder}" class="form-control" id="from_town"
-                   autocomplete="on" name="from_town"/>
+                   autocomplete="on" required="required" name="from_town"/>
         </div>
         <label for="to_town" class="control-label col-md-1">
-            <fmt:message key="to" bundle="${rb}"/>:
+            <fmt:message key="to" bundle="${rb}"/>
+            :
         </label>
         <div class="col-md-4">
             <input type="text" placeholder="${town_holder}" class="form-control" id="to_town"
-                   autocomplete="on" name="to_town"/>
+                   autocomplete="on" required="required" name="to_town"/>
         </div>
         <div>
+            <input type="hidden" name="timezone" value="">
             <fmt:message key="ticket.find" bundle="${rb}" var="find_butt"/>
             <input type="submit" class="btn btn-primary" value="${find_butt}"/>
         </div>
@@ -85,7 +87,7 @@
                                 <td>
                                     <b><fmt:message key="departure" bundle="${rb}"/>:</b><span class="glyphicons glyphicons-address-book"/>
                                 </td>
-                                <td>
+                                <td class="date-time-out">
                                     <c:out value="${flight.departureTime}   "/>
                                 </td>
 
@@ -98,7 +100,13 @@
         </a>
     </c:forEach>
 </div>
-
-
+<script src="/resources/js/date_formatter.js"></script>
+<script>
+    $('#flight_find').submit(function () {
+        $("input[name=timezone]").each(function (i, item) {
+            item.value = (new Date().getTimezoneOffset());
+        });
+    });
+</script>
 </body>
 </html>

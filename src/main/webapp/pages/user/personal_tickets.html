@@ -50,7 +50,7 @@
                             <td>
                                 <b><fmt:message key="departure" bundle="${rb}"/>:</b><span class="glyphicons glyphicons-address-book"/>
                             </td>
-                            <td>
+                            <td class="date-time-out">
                                 <c:out value="${ticket.flight.departureTime}   "/>
                             </td>
 
@@ -106,5 +106,7 @@
 <script>
     $("#pers_tick").addClass( "active" );
 </script>
+<
+<script src="/resources/js/date_formatter.js"></script>
 </body>
 </html>

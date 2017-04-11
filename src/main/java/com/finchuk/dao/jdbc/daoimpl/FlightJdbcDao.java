@@ -7,7 +7,6 @@ import com.finchuk.dao.jdbc.mappers.FlightMapper;
 import com.finchuk.entities.Flight;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -70,12 +69,11 @@ public class FlightJdbcDao implements FlightDao {
 
     }
     @Override
-    public List<Flight> getFlightsByParams(String townFrom, String townTo, LocalDate date) {
+    public List<Flight> getFlightsByParams(String townFrom, String townTo, LocalDateTime date) {
 
-        Timestamp timestampBefore = Timestamp.valueOf(
-                LocalDateTime.of(date.getYear(),date.getMonth(),date.getDayOfMonth(),0,0));
-        Timestamp timestampAfter = Timestamp.valueOf(
-                LocalDateTime.of(date.getYear(),date.getMonth(),date.getDayOfMonth(),23,59,59));
+        Timestamp timestampBefore = Timestamp.valueOf(date);
+        date = date.plusDays(1);
+        Timestamp timestampAfter = Timestamp.valueOf(date);
         return helper.findObjects("SELECT DISTINCT f.* from flight AS f" +
                 "  JOIN route AS r ON r.id=f.route " +
                 "  JOIN airport AS a1 ON a1.id=r.airport_from" +

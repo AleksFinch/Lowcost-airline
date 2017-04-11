@@ -5,6 +5,8 @@ import com.finchuk.controller.RequestService;
 import com.finchuk.entities.Airport;
 import com.finchuk.services.factory.ServiceFactory;
 import com.finchuk.services.impl.AirportService;
+import com.finchuk.util.RequestMapper;
+import com.finchuk.util.Validator;
 
 import java.util.List;
 
@@ -21,14 +23,13 @@ public class AirportsManagmentController extends Controller {
 
     @Override
     public void post(RequestService reqService) {
-        String airportId = reqService.getString("airport_id");
-        String country = reqService.getString("country");
-        String town = reqService.getString("town");
-        //TODO: validate
-        Airport airport = new Airport();
-        airport.setAirportId(airportId);
-        airport.setCountry(country);
-        airport.setTown(town);
+        String result = Validator.validateAirport(reqService);
+        if (!result.isEmpty()) {
+            reqService.redirect("/admin/airport_managing.html?error=" + result);
+            return;
+        }
+        Airport airport = RequestMapper.mapAirport(reqService);
+
         if(service.add(airport)){
             reqService.redirect("/admin/airport_managing");
         }else{

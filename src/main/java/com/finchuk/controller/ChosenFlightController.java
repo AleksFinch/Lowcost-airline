@@ -7,8 +7,8 @@ import com.finchuk.util.Validator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 /**
  * Created by root on 08.04.17.
@@ -31,6 +31,10 @@ public class ChosenFlightController extends Controller {
             return;
         }
         reqService.setPageAttribute("flight",flight);
-
+        Long availablePlaces = flightService.freeTickets(flight);
+        if (availablePlaces == 0 || LocalDateTime.now(ZoneOffset.UTC).isAfter(flight.getDepartureTime())) {
+            reqService.setPageAttribute("ranOut", true);
+        }
+        reqService.setPageAttribute("availablePlace", availablePlaces);
     }
 }

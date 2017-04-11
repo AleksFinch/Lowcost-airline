@@ -7,9 +7,10 @@ import com.finchuk.entities.User;
 import com.finchuk.services.factory.ServiceFactory;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 
 /**
  * Created by root on 09.04.17.
@@ -49,7 +50,8 @@ public class PaymentService {
 
     public synchronized Ticket reserveTicket(Long flightId, boolean withBagg, boolean privilege, User user){
         Flight flight = flightService.find(flightId);
-        LocalDateTime currTime = LocalDateTime.now();
+
+        LocalDateTime currTime = LocalDateTime.now(ZoneOffset.UTC);
         LocalDateTime depTime = flight.getDepartureTime();
         if(currTime.isAfter(depTime)){
             return null;
@@ -76,22 +78,23 @@ public class PaymentService {
     private void recalculatePrice(Ticket t, boolean withBagg, boolean privilege, LocalDateTime currTime, Long free){
         LocalDateTime depTime = t.getFlight().getDepartureTime();
         BigDecimal price = privilege?
-                t.getFlight().getStartPrice():
-                t.getFlight().getStartPriceForBusiness();
+                t.getFlight().getStartPriceForBusiness() :
+                t.getFlight().getStartPrice();
+
+        Long until = currTime.until(depTime, ChronoUnit.MINUTES);
+        Long maxUntil = depTime.minusMonths(3).until(depTime, ChronoUnit.MINUTES);
+        until = Math.min(until, maxUntil);
+        BigDecimal timeInPercent = BigDecimal.valueOf(2.0)
+                .subtract(BigDecimal.valueOf(until)
+                        .divide(BigDecimal.valueOf(maxUntil), 10, RoundingMode.HALF_UP));
+        price = price.multiply(timeInPercent);
+
         price = withBagg?price.multiply(BigDecimal.valueOf(2.5)):price;
         BigDecimal freeInPercents = BigDecimal.valueOf(2.0)
                 .subtract(BigDecimal.valueOf(free)
                         .divide(BigDecimal.valueOf(t.getFlight().getTickets().size())));
 
         price = price.multiply(freeInPercents);
-
-        Long until = depTime.until(currTime, ChronoUnit.MINUTES);
-        Long maxUntil = depTime.until(depTime.minusMonths(3), ChronoUnit.MINUTES);
-        until = Math.min(until,maxUntil);
-        BigDecimal timeInPercent = BigDecimal.valueOf(2.0)
-                .subtract(BigDecimal.valueOf(until)
-                        .divide(BigDecimal.valueOf(maxUntil)));
-        price = price.multiply(timeInPercent);
         t.setPrice(price);
     }
 }

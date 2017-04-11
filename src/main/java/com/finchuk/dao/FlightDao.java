@@ -2,7 +2,7 @@ package com.finchuk.dao;
 
 import com.finchuk.entities.Flight;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface FlightDao extends Dao<Flight, Long> {
 
-    List<Flight> getFlightsByParams(String townFrom, String townTo, LocalDate date);
+    List<Flight> getFlightsByParams(String townFrom, String townTo, LocalDateTime date);
 }
