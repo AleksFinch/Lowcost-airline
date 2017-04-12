@@ -9,7 +9,7 @@ Application is multilingual( English and Ukrainian)
 
 ## Roles:
 - Guest 
-    Can sign up, log in, find tickets
+    -- Can sign up, log in, find tickets
 - User 
     Can log out, buy tickets, look at personal information, personal tickets and unpaid tickets
 - Admin 
