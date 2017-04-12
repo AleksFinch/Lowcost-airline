@@ -8,12 +8,12 @@ User has the ability for privilege in boarding and for baggage transportation. F
 Application is multilingual( English and Ukrainian)
 
 ## Roles:
-- Guest
-Can sign up, log in, find tickets
-- User 
-Can log out, buy tickets, look at personal information, personal tickets and unpaid tickets
-- Admin 
-Manage data and can do the same as user
+- **Guest**
+    > Can sign up, log in, find tickets
+- **User**
+    > Can log out, buy tickets, look at personal information, personal tickets and unpaid tickets
+- **Admin** 
+    > Manage data and can do the same as user
 
 ## Technology:
 - JDBS
