@@ -7,6 +7,8 @@ import com.finchuk.entities.Flight;
 import com.finchuk.entities.Route;
 
 import java.math.BigDecimal;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -16,14 +18,31 @@ import java.time.format.DateTimeParseException;
  * Created by root on 08.04.17.
  */
 public class RequestMapper {
+    public static Airline mapAirline(RequestService reqService) {
+
+        String company = reqService.getString("company");
+        String imgPath = reqService.getString("img_path");
+        URI url;
+        try {
+            url = new URI(imgPath);
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException("invalid.imgpath");
+        }
+        Airline airline = new Airline();
+        airline.setCompanyName(company);
+        airline.setImgPath(url);
+        return airline;
+    }
+
     public static Route mapRoute(RequestService reqService){
         String flightDuration = reqService.getString("flight_time");
         String plane = reqService.getString("plane");
         String airportFrom = reqService.getString("s_airport_from");
         String airportTo = reqService.getString("s_airport_to");
+        String airlineComp = reqService.getString("s_airline");
         Long company;
         try {
-            company = Long.valueOf(reqService.getString("s_airline"));
+            company = Long.valueOf(airlineComp);
         } catch (NumberFormatException e) {
             throw new NumberFormatException("invalid.company");
         }

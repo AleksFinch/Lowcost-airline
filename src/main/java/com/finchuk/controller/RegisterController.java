@@ -3,7 +3,6 @@ package com.finchuk.controller;
 import com.finchuk.entities.User;
 import com.finchuk.services.AuthService;
 import com.finchuk.services.factory.ServiceFactory;
-import com.finchuk.services.impl.AuthServiceImpl;
 import com.finchuk.util.Validator;
 
 /**
@@ -11,11 +10,17 @@ import com.finchuk.util.Validator;
  */
 public class RegisterController extends Controller {
     AuthService service = ServiceFactory.getAuthService();
+
+    @Override
+    public void get(RequestService reqService) {
+        reqService.setAtributesFromFlash("firstname", "lastname", "email", "error");
+    }
     @Override
     public void post(RequestService reqService) {
         String result = Validator.validateUserRegister(reqService);
         if(!result.isEmpty()){
-            reqService.redirect("/register?error="+result);
+            reqService.redirect("/register");
+            reqService.putFlashParameter("error", result);
             return;
         }
         String firstname = reqService.getString("firstname");
@@ -32,7 +37,11 @@ public class RegisterController extends Controller {
         if(service.register(user)){
             reqService.redirect("/login.html");
         }else {
-            reqService.redirect("/register?exist=true");
+            reqService.redirect("/register");
+            reqService.putFlashParameter("firstname", firstname);
+            reqService.putFlashParameter("lastname", lastname);
+            reqService.putFlashParameter("email", eMail);
+            reqService.putFlashParameter("error", "signup.error.email.used");
         }
     }
 }

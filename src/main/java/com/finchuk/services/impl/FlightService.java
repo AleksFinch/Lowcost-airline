@@ -14,7 +14,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -53,7 +52,7 @@ public class FlightService extends AbstractEntityService<Flight, Long> {
         date = date.plusMinutes(timez);
         LocalDateTime dateNow = LocalDateTime.now(ZoneOffset.UTC);
         if (dateNow.isAfter(date)) {
-            return Collections.emptyList();
+            throw new IllegalArgumentException("past");
         }
         List<Flight> tickets = ((FlightDao) dao).getFlightsByParams(townFrom.toLowerCase(),townTo.toLowerCase(),date);
         tickets.forEach(e->loadTails(e));

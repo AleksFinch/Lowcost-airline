@@ -17,10 +17,10 @@
 <c:import url="/resources/components/admin_navigation.html"/>
 
 
-<c:if test="${param.already_exist}">
-    <div >
+<c:if test="${not empty error}">
+    <div>
         <div class=" container alert alert-danger col-md-5 ">
-            <fmt:message key="airport.already.exist" bundle="${rb}"/>
+            <fmt:message key="${error}" bundle="${rb}"/>
         </div>
     </div>
 </c:if>
@@ -28,17 +28,20 @@
     <div class="form-group">
         <label for="airport_id"><fmt:message key="airport.id" bundle="${rb}"/>:</label>
         <input type="text" name="airport_id" class="form-control  nameInput" id="airport_id"
-               required="required" pattern="^[\wа-яА-ЯіІїЇ@#$%^&+\-= ]{1,20}$"/>
+               required="required" pattern="^[\wа-яА-ЯіІїЇ@#$%^&+\-= ]{1,20}$"
+               value="${airport_id}"/>
     </div>
     <div class="form-group">
         <label for="country"><fmt:message key="country" bundle="${rb}"/>:</label>
         <input type="text" name="country" class="form-control  nameInput" id="country"
-               required="required" pattern="^[\wа-яА-ЯіІїЇ@#$%^&+\-= ]{1,64}$"/>
+               required="required" pattern="^[\wа-яА-ЯіІїЇ@#$%^&+\-= ]{1,64}$"
+               value="${country}"/>
     </div>
     <div class="form-group">
         <label for="town"><fmt:message key="town" bundle="${rb}"/>:</label>
         <input type="text" name="town" class="form-control  nameInput" id="town"
-               required="required" pattern="^[\wа-яА-ЯіІїЇ@#$%^&+\-= ]{1,64}$"/>
+               required="required" pattern="^[\wа-яА-ЯіІїЇ@#$%^&+\-= ]{1,64}$"
+               value="${town}"/>
     </div>
     <fmt:message key="add.airport" bundle="${rb}" var="add_airport"/>
     <input type="submit" class="btn btn-success" value="${add_airport}">

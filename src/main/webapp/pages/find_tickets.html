@@ -13,6 +13,16 @@
 
 <c:import url="/resources/components/navigation.html"/>
 
+<c:if test="${not empty error}">
+
+    <div style="clear: both;" align="center" class=" alert alert-danger">
+        <h4>
+            <fmt:message key="${error}" bundle="${rb}"/>
+        </h4>
+    </div>
+
+</c:if>
+
 <form id="flight_find" action="/find_tickets" method="get"
       style="margin:50px;" class="form-horizontal">
     <div class="form-group">
@@ -23,7 +33,7 @@
         </label>
         <div class="col-md-4">
             <input type="text" placeholder="${town_holder}" class="form-control" id="from_town"
-                   autocomplete="on" required="required" name="from_town"/>
+                   autocomplete="on" required="required" name="from_town" value="${from_town}"/>
         </div>
         <label for="to_town" class="control-label col-md-1">
             <fmt:message key="to" bundle="${rb}"/>
@@ -31,7 +41,7 @@
         </label>
         <div class="col-md-4">
             <input type="text" placeholder="${town_holder}" class="form-control" id="to_town"
-                   autocomplete="on" required="required" name="to_town"/>
+                   autocomplete="on" required="required" name="to_town" value="${to_town}"/>
         </div>
         <div>
             <input type="hidden" name="timezone" value="">
@@ -45,7 +55,7 @@
         </label>
         <div class="col-md-2">
             <input type="date" name="dep_time" class="form-control"
-                   id="departure_date"/>
+                   id="departure_date" value="${dep_time}"/>
 
         </div>
 

@@ -19,6 +19,7 @@ import java.util.Optional;
 public class MainServletDispatcher extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(MainServletDispatcher.class);
 
+    public static final String FLASH_SESSION_KEY = "__flash";
     public static final String PAGE_SUFFIX = ".html";
     public static final String REDIRECT_KEY = "__redirect";
     public static final String HEADER_REFERRER = "Referer";
@@ -57,7 +58,9 @@ public class MainServletDispatcher extends HttpServlet {
             if (requestService.isRedirect()) {
                 requestService.clearRedirectFlag();
             } else {
-                //TODO: release flash
+
+                requestService.clearFlash();
+
             }
 
             //TODO: release resources
@@ -75,7 +78,7 @@ public class MainServletDispatcher extends HttpServlet {
     private Controller getController(String pathInfo) {
         pathInfo = pathInfo.toLowerCase();
         int index = pathInfo.lastIndexOf(PAGE_SUFFIX);
-        if (index!=-1&&index + PAGE_SUFFIX.length() == pathInfo.length()) {
+        if (index != -1 && index + PAGE_SUFFIX.length() == pathInfo.length()) {
             pathInfo = pathInfo.substring(0, index);
         }
         return pathMap.get(pathInfo);
@@ -130,5 +133,6 @@ public class MainServletDispatcher extends HttpServlet {
             return pathInfo + PAGE_SUFFIX;
         return pathInfo;
     }
+
 
 }
