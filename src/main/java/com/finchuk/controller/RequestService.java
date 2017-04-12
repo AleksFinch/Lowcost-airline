@@ -1,7 +1,7 @@
 package com.finchuk.controller;
 
 import com.finchuk.dispatcher.MainServletDispatcher;
-import com.finchuk.entities.User;
+import com.finchuk.dto.User;
 import com.finchuk.security.HTTPMethod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,7 +14,12 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Created by olexandr on 31.03.17.
+ * A wrapper class that contains all the necessary information for
+ * processing a request by {@link Controller} along with some
+ * helper methods
+ *
+ * Note that {@link #redirect(String)} and {@link #render(String)} has special treatment
+ * by the {@link com.finchuk.dispatcher.MainServletDispatcher}
  */
 public class RequestService {
     private static final Logger LOGGER = LogManager.getLogger(RequestService.class);

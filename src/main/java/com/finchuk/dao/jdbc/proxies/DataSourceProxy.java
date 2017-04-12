@@ -10,7 +10,18 @@ import java.sql.SQLFeatureNotSupportedException;
 import java.util.logging.Logger;
 
 /**
- * Created by olexandr on 26.03.17.
+ * The data source enabled multiple method transaction span by intercepting connection
+ * creation and release points
+ *
+ * In a single thread a method that start a transaction and does not closes connection and
+ * call other such methods will have a mutual transaction because all the methods will deal
+ * with the same pooled connection instance
+ *
+ * Use Transaction.doTransaction for safe transaction creation
+ *
+ * Wraps a pooled DataSource.
+ * @see ConnectionProxy
+ * @ses Transaction
  */
 public class DataSourceProxy implements DataSource {
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(DataSourceProxy.class);

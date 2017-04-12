@@ -1,4 +1,4 @@
-package com.finchuk.entities;
+package com.finchuk.dto;
 
 import java.util.Collection;
 import java.util.Objects;

@@ -1,7 +1,6 @@
-package com.finchuk.entities;
+package com.finchuk.dto;
 
 import java.net.URI;
-import java.net.URL;
 import java.util.Objects;
 
 /**

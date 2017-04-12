@@ -4,7 +4,7 @@ package creator;
 import com.finchuk.dao.*;
 import com.finchuk.dao.factory.DaoFactory;
 import com.finchuk.dao.factory.JdbcDaoFactory;
-import com.finchuk.entities.*;
+import com.finchuk.dto.*;
 
 import java.math.BigDecimal;
 import java.net.URI;

@@ -5,7 +5,7 @@ import com.finchuk.dao.jdbc.ConnectionManager;
 import com.finchuk.dao.jdbc.RuntimeSqlException;
 import com.finchuk.dao.jdbc.daoimpl.template.JdbcHelper;
 import com.finchuk.dao.jdbc.mappers.FlightMapper;
-import com.finchuk.entities.Flight;
+import com.finchuk.dto.Flight;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -113,7 +113,7 @@ public class FlightJdbcDao implements FlightDao {
 
     @Override
     public List<Flight> findWithOffset(Long count, Long from) {
-        return helper.findObjects("SELECT * FROM flight LIMIT ? OFFSET ?"
+        return helper.findObjects("SELECT * FROM flight ORDER BY departure_time LIMIT ? OFFSET ?"
                 , FlightMapper::map, count, from);
     }
 

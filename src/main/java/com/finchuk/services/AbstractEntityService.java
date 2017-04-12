@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by olexandr on 29.03.17.
+ * Abstract CrudService implementation that delegates invocations to the dao
+ * @param <T> Entity type parameter
+ * @param <PK> Primary key type
  */
 public abstract class AbstractEntityService<T, PK extends Serializable> {
     protected Dao<T, PK> dao;

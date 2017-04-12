@@ -5,7 +5,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Created by olexandr on 31.03.17.
+ * This class used for convenient request handling
+ *
+ * It looks like a HttpServlet but has the advantage of centralized
+ * dispatching and path parameter handling
+ *
+ * Every method receives a RequestService instance that contains
+ * some convenient wrapper methods
+ *
+ * @see com.finchuk.dispatcher.MainServletDispatcher
+ * @see RequestService
  */
 public abstract class Controller{
     private static final Logger LOGGER = LogManager.getLogger(Controller.class);

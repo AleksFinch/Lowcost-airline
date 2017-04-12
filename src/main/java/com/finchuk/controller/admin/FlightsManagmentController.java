@@ -2,9 +2,9 @@ package com.finchuk.controller.admin;
 
 import com.finchuk.controller.Controller;
 import com.finchuk.controller.RequestService;
-import com.finchuk.entities.Airline;
-import com.finchuk.entities.Airport;
-import com.finchuk.entities.Flight;
+import com.finchuk.dto.Airline;
+import com.finchuk.dto.Airport;
+import com.finchuk.dto.Flight;
 import com.finchuk.services.factory.ServiceFactory;
 import com.finchuk.services.impl.AirlineService;
 import com.finchuk.services.impl.AirportService;

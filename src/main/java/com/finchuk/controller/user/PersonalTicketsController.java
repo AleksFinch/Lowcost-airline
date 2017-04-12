@@ -2,9 +2,8 @@ package com.finchuk.controller.user;
 
 import com.finchuk.controller.Controller;
 import com.finchuk.controller.RequestService;
-import com.finchuk.entities.Ticket;
-import com.finchuk.entities.TicketStatus;
-import com.finchuk.entities.User;
+import com.finchuk.dto.Ticket;
+import com.finchuk.dto.TicketStatus;
 import com.finchuk.services.factory.ServiceFactory;
 import com.finchuk.services.impl.TicketService;
 

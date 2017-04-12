@@ -4,7 +4,7 @@ import com.finchuk.dao.RouteDao;
 import com.finchuk.dao.jdbc.ConnectionManager;
 import com.finchuk.dao.jdbc.daoimpl.template.JdbcHelper;
 import com.finchuk.dao.jdbc.mappers.RouteMapper;
-import com.finchuk.entities.Route;
+import com.finchuk.dto.Route;
 
 import java.sql.Time;
 import java.util.List;

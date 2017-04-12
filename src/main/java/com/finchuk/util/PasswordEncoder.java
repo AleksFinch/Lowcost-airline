@@ -8,7 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 /**
- * Created by olexandr on 30.03.17.
+ * Contains one static method that encodes a password
  */
 public class PasswordEncoder {
     private static final Logger LOGGER = LogManager.getLogger(PasswordEncoder.class);

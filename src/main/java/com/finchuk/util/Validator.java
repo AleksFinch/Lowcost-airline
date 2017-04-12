@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by root on 09.04.17.
+ * Contains static methods for validate request parameters
  */
 public class Validator {
 

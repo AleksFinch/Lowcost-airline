@@ -1,8 +1,7 @@
 package com.finchuk.security;
 
-import com.finchuk.entities.Role;
+import com.finchuk.dto.Role;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,7 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by olexandr on 30.03.17.
+ * A singleton object for encapsulating user authorization and authentication
+ * Allows adding security constrains to the web application
  */
 public class SecurityContainer {
 
@@ -23,6 +23,15 @@ public class SecurityContainer {
     private SecurityContainer() {
     }
 
+    /**
+     * Allows access to URLs denoted by the s regular expression
+     * for the given roles and denies for other users
+     *
+     * @param urlPattern regular expression which tested against the URL
+     * @param roles      roles that allowed to access the given set of pages;
+     *                   if null - only authenticated user can access the pages
+     * @return the same SecurityContext
+     */
     public void addConstraint(String urlPattern,List<HTTPMethod> methods, Role... roles) {
         constraints.add(new RoleConstraint(urlPattern, methods, roles));
     }
@@ -34,7 +43,14 @@ public class SecurityContainer {
         constraints.clear();
     }
 
-    public boolean isAllowed(String urlPath,HTTPMethod httpMethod, Role role) {
+    /**
+     * Test if a user with the given roles and request method can access the page
+     * @param urlPath  URI of the resource starting with /
+     * @param role role of the user
+     * @param httpMethod - request method
+     * @return true if user allowed to access the resource, false - otherwise
+     */
+    public boolean isAllowed(String urlPath, HTTPMethod httpMethod, Role role) {
         for (RoleConstraint constraint :
                 constraints) {
             if (constraint.matches(urlPath)) {

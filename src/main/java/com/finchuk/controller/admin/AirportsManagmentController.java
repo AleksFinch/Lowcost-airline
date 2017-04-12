@@ -2,7 +2,7 @@ package com.finchuk.controller.admin;
 
 import com.finchuk.controller.Controller;
 import com.finchuk.controller.RequestService;
-import com.finchuk.entities.Airport;
+import com.finchuk.dto.Airport;
 import com.finchuk.services.factory.ServiceFactory;
 import com.finchuk.services.impl.AirportService;
 import com.finchuk.util.RequestMapper;

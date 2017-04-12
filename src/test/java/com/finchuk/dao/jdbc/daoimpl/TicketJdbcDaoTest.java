@@ -1,7 +1,7 @@
 package com.finchuk.dao.jdbc.daoimpl;
 
 import com.finchuk.dao.factory.JdbcDaoFactory;
-import com.finchuk.entities.Ticket;
+import com.finchuk.dto.Ticket;
 import creator.EntityCreator;
 
 import java.math.BigDecimal;

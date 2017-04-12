@@ -1,13 +1,11 @@
 package com.finchuk.dao.jdbc.mappers;
 
-import com.finchuk.entities.Airline;
+import com.finchuk.dto.Airline;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;

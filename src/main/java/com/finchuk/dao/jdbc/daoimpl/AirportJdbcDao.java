@@ -4,7 +4,7 @@ import com.finchuk.dao.AirportDao;
 import com.finchuk.dao.jdbc.ConnectionManager;
 import com.finchuk.dao.jdbc.daoimpl.template.JdbcHelper;
 import com.finchuk.dao.jdbc.mappers.AirportMapper;
-import com.finchuk.entities.Airport;
+import com.finchuk.dto.Airport;
 
 import java.util.List;
 

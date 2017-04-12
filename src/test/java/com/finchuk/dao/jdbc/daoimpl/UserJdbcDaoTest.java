@@ -1,7 +1,7 @@
 package com.finchuk.dao.jdbc.daoimpl;
 
 import com.finchuk.dao.factory.JdbcDaoFactory;
-import com.finchuk.entities.User;
+import com.finchuk.dto.User;
 import creator.EntityCreator;
 
 /**

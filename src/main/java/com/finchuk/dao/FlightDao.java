@@ -1,6 +1,6 @@
 package com.finchuk.dao;
 
-import com.finchuk.entities.Flight;
+import com.finchuk.dto.Flight;
 
 import java.time.LocalDateTime;
 import java.util.List;

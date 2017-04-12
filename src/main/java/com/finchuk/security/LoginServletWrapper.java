@@ -1,10 +1,8 @@
 package com.finchuk.security;
 
-import com.finchuk.entities.Role;
-import com.finchuk.entities.User;
+import com.finchuk.dto.Role;
+import com.finchuk.dto.User;
 import com.finchuk.services.AuthService;
-import com.finchuk.services.factory.ServiceFactory;
-import com.finchuk.services.impl.AuthServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,13 +12,26 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import java.security.Principal;
 
 /**
- * Created by olexandr on 30.03.17.
+ * A wrapper around HttpServletRequest that override methods related to
+ * security, authorization and authentication
+ *
+ * @see SecurityContainer
+ * @see PathSecurityFilter
  */
 public class LoginServletWrapper extends HttpServletRequestWrapper {
     private static final Logger LOGGER = LogManager.getLogger(LoginServletWrapper.class);
+    AuthService service;
 
     LoginServletWrapper(HttpServletRequest request) {
         super(request);
+    }
+
+    public AuthService getService() {
+        return service;
+    }
+
+    public void setService(AuthService service) {
+        this.service = service;
     }
 
     protected HttpServletRequest getHttpRequest() {
@@ -39,7 +50,7 @@ public class LoginServletWrapper extends HttpServletRequestWrapper {
 
     @Override
     public boolean isUserInRole(String role) {
-        User user = (User) getHttpRequest().getSession(false).getAttribute("user");
+        User user = getCurrentUser();
         if (user == null) {
             return false;
         }
@@ -53,7 +64,6 @@ public class LoginServletWrapper extends HttpServletRequestWrapper {
 
     @Override
     public void login(String username, String password) throws ServletException {
-        AuthService service = ServiceFactory.getAuthService();
         User user = service.checkLogin(username, password);
         if (user!=null) {
             getHttpRequest().getSession(true).setAttribute("user", user);
@@ -68,4 +78,9 @@ public class LoginServletWrapper extends HttpServletRequestWrapper {
     public void logout() throws ServletException {
         getSession().invalidate();
     }
+
+    public User getCurrentUser() {
+        return (User) getSession(true).getAttribute("user");
+    }
+
 }

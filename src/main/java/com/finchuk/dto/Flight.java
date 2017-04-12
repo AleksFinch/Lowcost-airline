@@ -1,4 +1,4 @@
-package com.finchuk.entities;
+package com.finchuk.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

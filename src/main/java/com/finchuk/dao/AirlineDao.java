@@ -1,6 +1,6 @@
 package com.finchuk.dao;
 
-import com.finchuk.entities.Airline;
+import com.finchuk.dto.Airline;
 
 /**
  * Created by olexandr on 25.03.17.

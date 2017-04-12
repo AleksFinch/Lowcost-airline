@@ -1,4 +1,4 @@
-package com.finchuk.entities;
+package com.finchuk.dto;
 
 /**
  * Created by olexandr on 25.03.17.

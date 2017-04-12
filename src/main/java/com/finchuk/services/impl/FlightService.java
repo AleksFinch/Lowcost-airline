@@ -3,10 +3,10 @@ package com.finchuk.services.impl;
 import com.finchuk.dao.FlightDao;
 import com.finchuk.dao.factory.JdbcDaoFactory;
 import com.finchuk.dao.jdbc.transaction.Transaction;
-import com.finchuk.entities.Flight;
-import com.finchuk.entities.Route;
-import com.finchuk.entities.Ticket;
-import com.finchuk.entities.TicketStatus;
+import com.finchuk.dto.Flight;
+import com.finchuk.dto.Route;
+import com.finchuk.dto.Ticket;
+import com.finchuk.dto.TicketStatus;
 import com.finchuk.services.AbstractEntityService;
 import com.finchuk.services.factory.ServiceFactory;
 

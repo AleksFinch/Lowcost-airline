@@ -1,8 +1,8 @@
 package com.finchuk.dao;
 
-import com.finchuk.entities.Flight;
-import com.finchuk.entities.Ticket;
-import com.finchuk.entities.User;
+import com.finchuk.dto.Flight;
+import com.finchuk.dto.Ticket;
+import com.finchuk.dto.User;
 
 import java.util.List;
 

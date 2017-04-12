@@ -1,10 +1,10 @@
 package com.finchuk.util;
 
 import com.finchuk.controller.RequestService;
-import com.finchuk.entities.Airline;
-import com.finchuk.entities.Airport;
-import com.finchuk.entities.Flight;
-import com.finchuk.entities.Route;
+import com.finchuk.dto.Airline;
+import com.finchuk.dto.Airport;
+import com.finchuk.dto.Flight;
+import com.finchuk.dto.Route;
 
 import java.math.BigDecimal;
 import java.net.URI;
@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Created by root on 08.04.17.
+ * Contains static methods for mapping objects from request parameters
  */
 public class RequestMapper {
     public static Airline mapAirline(RequestService reqService) {

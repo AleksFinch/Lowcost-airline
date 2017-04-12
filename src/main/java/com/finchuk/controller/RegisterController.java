@@ -1,6 +1,6 @@
 package com.finchuk.controller;
 
-import com.finchuk.entities.User;
+import com.finchuk.dto.User;
 import com.finchuk.services.AuthService;
 import com.finchuk.services.factory.ServiceFactory;
 import com.finchuk.util.Validator;

@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Optional;
 
 /**
- * Created by olexandr on 31.03.17.
+ * Dispatches incoming request to mapped Controllers
  */
 public class MainServletDispatcher extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(MainServletDispatcher.class);

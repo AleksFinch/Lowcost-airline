@@ -2,7 +2,7 @@ package com.finchuk.services.impl;
 
 import com.finchuk.dao.RouteDao;
 import com.finchuk.dao.factory.JdbcDaoFactory;
-import com.finchuk.entities.Route;
+import com.finchuk.dto.Route;
 import com.finchuk.services.AbstractEntityService;
 import com.finchuk.services.factory.ServiceFactory;
 

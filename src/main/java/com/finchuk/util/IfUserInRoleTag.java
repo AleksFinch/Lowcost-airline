@@ -5,7 +5,11 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 /**
- * Created by root on 12.04.17.
+ * Custom JSP tag for checking user roles directly in the
+ * JSP page. If no `role` attribute is supplied that it will
+ * test if the user authentication to the web application.
+ * If `role` attribute equals to 'none' that it will
+ * test if the user is not authenticated to the web application
  */
 public class IfUserInRoleTag extends TagSupport {
     private String role;

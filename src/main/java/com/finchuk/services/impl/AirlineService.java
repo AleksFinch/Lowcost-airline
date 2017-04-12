@@ -1,7 +1,7 @@
 package com.finchuk.services.impl;
 
 import com.finchuk.dao.factory.JdbcDaoFactory;
-import com.finchuk.entities.Airline;
+import com.finchuk.dto.Airline;
 import com.finchuk.services.AbstractEntityService;
 
 /**
