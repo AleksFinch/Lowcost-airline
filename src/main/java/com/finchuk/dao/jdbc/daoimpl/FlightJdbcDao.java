@@ -2,10 +2,14 @@ package com.finchuk.dao.jdbc.daoimpl;
 
 import com.finchuk.dao.FlightDao;
 import com.finchuk.dao.jdbc.ConnectionManager;
+import com.finchuk.dao.jdbc.RuntimeSqlException;
 import com.finchuk.dao.jdbc.daoimpl.template.JdbcHelper;
 import com.finchuk.dao.jdbc.mappers.FlightMapper;
 import com.finchuk.entities.Flight;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,6 +18,7 @@ import java.util.List;
  * Created by olexandr on 26.03.17.
  */
 public class FlightJdbcDao implements FlightDao {
+    private static final Logger LOGGER = LogManager.getLogger(FlightJdbcDao.class);
 
     ConnectionManager cm;
     JdbcHelper helper;
@@ -89,6 +94,27 @@ public class FlightJdbcDao implements FlightDao {
                 timestampAfter,
                 townFrom,
                 townTo);
+    }
+
+    @Override
+    public Long totalCount() {
+        return helper.findObject("SELECT COUNT(*) FROM flight"
+                , (resultSet) -> {
+                    Long l;
+                    try {
+                        l = resultSet.getLong(1);
+                    } catch (SQLException e) {
+                        LOGGER.error("", e);
+                        throw new RuntimeSqlException(e);
+                    }
+                    return l;
+                });
+    }
+
+    @Override
+    public List<Flight> findWithOffset(Long count, Long from) {
+        return helper.findObjects("SELECT * FROM flight LIMIT ? OFFSET ?"
+                , FlightMapper::map, count, from);
     }
 
 }

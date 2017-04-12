@@ -81,4 +81,14 @@ public class FlightService extends AbstractEntityService<Flight, Long> {
                 .count();
 
     }
+
+    public Long totalCount() {
+        return ((FlightDao) dao).totalCount();
+    }
+
+    public List<Flight> findWithOffset(Long count, Long from) {
+        List<Flight> flights = ((FlightDao) dao).findWithOffset(count, from);
+        flights.forEach(e -> loadTails(e));
+        return flights;
+    }
 }

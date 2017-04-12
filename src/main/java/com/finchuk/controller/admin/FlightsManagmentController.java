@@ -25,6 +25,8 @@ public class FlightsManagmentController extends Controller {
     AirportService airportService = ServiceFactory.getAirportService();
     FlightService flightService = ServiceFactory.getFlightService();
 
+    private static final Long RECORDS_PER_PAGE = 10l;
+
     @Override
     public void get(RequestService reqService) {
         reqService.setAtributesFromFlash("plane",
@@ -37,12 +39,24 @@ public class FlightsManagmentController extends Controller {
                 "flight_time",
                 "departure_time",
                 "error");
+        String page = reqService.getString("page");
+        Long currPage = Validator.tryParseLong(page);
+        if (currPage == null || currPage <= 0) {
+            currPage = 1l;
+        }
+        Long total = flightService.totalCount();
+        int countOfPages = (int) Math.ceil(total * 1.0 / RECORDS_PER_PAGE);
+        currPage = Math.min(currPage, countOfPages);
+        List<Flight> flights = flightService.findWithOffset(RECORDS_PER_PAGE, (currPage - 1) * RECORDS_PER_PAGE);
+        reqService.setPageAttribute("countOfPages", countOfPages);
+        reqService.setPageAttribute("currentPage", currPage);
+        reqService.setPageAttribute("flights", flights);
+
         List<Airline> airlines = airlineService.findAll();
         reqService.setPageAttribute("sel_airlines", airlines);
         List<Airport> airports = airportService.findAll();
         reqService.setPageAttribute("sel_airports", airports);
-        List<Flight> flights = flightService.findAll();
-        reqService.setPageAttribute("flights", flights);
+
         Map<Flight, Long> map = new HashMap<>();
         for (Flight f :
                 flights) {

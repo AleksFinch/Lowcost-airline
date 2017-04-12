@@ -11,4 +11,8 @@ import java.util.List;
 public interface FlightDao extends Dao<Flight, Long> {
 
     List<Flight> getFlightsByParams(String townFrom, String townTo, LocalDateTime date);
+
+    Long totalCount();
+
+    List<Flight> findWithOffset(Long count, Long from);
 }

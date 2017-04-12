@@ -26,7 +26,7 @@ public class AirlineJdbcDao implements AirlineDao {
                         "(company_name,img_path)" +
                         "VALUES(?,?)",
                 airline.getCompanyName(),
-                airline.getImgPath().toString());
+                airline.getImgPath());
     }
 
     @Override

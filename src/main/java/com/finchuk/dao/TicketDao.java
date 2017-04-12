@@ -13,4 +13,6 @@ public interface TicketDao extends Dao<Ticket, Long> {
     List<Ticket> getUserTickets(User user);
 
     List<Ticket> getFlightTickets(Flight flight);
+
+
 }

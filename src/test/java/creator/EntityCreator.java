@@ -7,6 +7,7 @@ import com.finchuk.dao.factory.JdbcDaoFactory;
 import com.finchuk.entities.*;
 
 import java.math.BigDecimal;
+import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -37,6 +38,7 @@ public class EntityCreator {
     public static Airline createAirline(){
         Airline airline = new Airline();
         airline.setCompanyName("FinAir");
+        airline.setImgPath(URI.create("/res/log.png"));
         return airline;
     }
     public static Airport createAirport(){

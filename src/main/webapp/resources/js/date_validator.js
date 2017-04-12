@@ -8,10 +8,13 @@ $(document).ready(function () {
         elem.val(parseDate(date));
     });
     var elem = $('#departure_time');
-    var date = new Date(Date.parse(elem.val()));
+    var prevDate = elem.val();
+    if (prevDate) {
+        var date = new Date(Date.parse(prevDate));
+        date = new Date(date.getTime());
+        elem.val(formatDateT(date));
+    }
 
-    date = new Date(date.getTime());
-    elem.val(formatDateT(date));
 
 
 });
