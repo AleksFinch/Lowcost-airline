@@ -17,10 +17,10 @@
 
 <c:import url="/resources/components/admin_navigation.html"/>
 
-<c:if test="${param.invalid_path}">
+<c:if test="${not empty error}">
     <div>
         <div class=" container alert alert-danger col-md-5 ">
-            <fmt:message key="invalid.path" bundle="${rb}"/>
+            <fmt:message key="${error}" bundle="${rb}"/>
         </div>
     </div>
 </c:if>
@@ -28,13 +28,13 @@
     
     <div class="form-group">
         <label for="company"><fmt:message key="company" bundle="${rb}"/>:</label>
-        <input type="text" name="company" class="form-control  nameInput" id="company"
-               required="required" pattern="^[\wа-яА-ЯіІїЇ@#$%^&+\-= ]{1,20}$"/>
+        <input type="text" name="company" class="form-control" id="company"
+               required="required" pattern="^[\wа-яА-ЯіІїЇ@#$%^&+\-= ]{1,20}$" value="${company}"/>
     </div>
     <div class="form-group">
         <label for="img_path"><fmt:message key="imgpath" bundle="${rb}"/>:</label>
         <input type="text" name="img_path" class="form-control" id="img_path"
-               pattern="^(.{1,500}\.(jpe?g|png))$"/>
+               pattern="^(.{1,500}\.(jpe?g|png))$" value="${img_path}"/>
     </div>
     <fmt:message key="add.airline" bundle="${rb}" var="add_airline"/>
     <input type="submit" class="btn btn-success" value="${add_airline}">
@@ -47,18 +47,29 @@
             <fmt:message key="many.airline" bundle="${rb}"/>
         </div>
         <div class="panel-body">
-            <table class="table table-hover ">
-                <tr>
-                    <th><fmt:message key="company" bundle="${rb}"/></th>
-                    <th><fmt:message key="imgpath" bundle="${rb}"/></th>
-                </tr>
-                <c:forEach items="${airlines}" var="airline">
+            <div>
+                <table class="table table-hover ">
                     <tr>
-                        <td><c:out value="${airline.companyName}"/></td>
-                        <td><c:out value="${airline.imgPath==null?'null':airline.imgPath.toString()}"/></td>
+                        <th>
+                            <fmt:message key="company" bundle="${rb}"/>
+                        </th>
+                        <th style="word-break: break-all;">
+                            <fmt:message key="imgpath" bundle="${rb}"/>
+                        </th>
                     </tr>
-                </c:forEach>
-            </table>
+                    <c:forEach items="${airlines}" var="airline">
+                        <tr>
+                            <td>
+                                <c:out value="${airline.companyName}"/>
+                            </td>
+                            <td style="word-break: break-all;">
+                                <c:out value="${airline.imgPath==null?'null':airline.imgPath.toString()}"/>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+
+            </div>
 
         </div>
     </div>
@@ -67,6 +78,6 @@
 <script>
     $("#man_airline").addClass( "active" );
 </script>
-<script src="/resources/js/validation.js"></script>
+
 </body>
 </html>

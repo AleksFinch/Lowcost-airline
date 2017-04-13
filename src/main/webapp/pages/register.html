@@ -19,18 +19,11 @@
                 <fmt:message key="signup" bundle="${rb}"/>
             </h4>
         </div>
-        <c:if test="${param.exist}">
-            <div class="container">
-                <div class=" container alert alert-danger col-md-offset-2 col-md-5 ">
 
-                    <fmt:message key="signup.error.email.used" bundle="${rb}"/>
-                </div>
-            </div>
-        </c:if>
-        <c:if test="${not empty param.error}">
+        <c:if test="${not empty error}">
             <div class="container">
                 <div class=" container alert alert-danger col-md-offset-2 col-md-5 ">
-                    <fmt:message key="${param.error}" bundle="${rb}"/>
+                    <fmt:message key="${error}" bundle="${rb}"/>
                 </div>
             </div>
         </c:if>
@@ -48,7 +41,7 @@
                     </label>
                     <div class="col-md-4">
                         <input type="text" placeholder="${first_name_var}" name="firstname"
-                               class="form-control col-md-4  nameInput" id="first_name"
+                               class="form-control col-md-4  nameInput" id="first_name" value="${firstname}"
                                autocomplete="on" required="required" pattern="^[\wа-яА-ЯіІїЇ@#$%^&+\-= ]{1,64}$"/>
                     </div>
                 </div>
@@ -62,7 +55,8 @@
                     <div class="col-md-4">
                         <input type="text" placeholder="${last_name_var}" name="lastname"
                                class="form-control col-md-4  nameInput" id="last_name"
-                               autocomplete="on" required="required" pattern="^[\wа-яА-ЯіІїЇ@#$%^&+\-= ]{1,64}$"/>
+                               autocomplete="on" required="required" pattern="^[\wа-яА-ЯіІїЇ@#$%^&+\-= ]{1,64}$"
+                               value="${lastname}"/>
                     </div>
 
                 </div>
@@ -75,7 +69,7 @@
                     <div class="col-md-4">
                         <input type="email" placeholder="${email_var}" name="e_mail" class="form-control col-md-4"
                                id="j_username"
-                               autocomplete="on" required="required"/>
+                               autocomplete="on" required="required" value="${email}"/>
                     </div>
 
                 </div>

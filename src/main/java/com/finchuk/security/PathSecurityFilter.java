@@ -1,7 +1,8 @@
 package com.finchuk.security;
 
-import com.finchuk.entities.Role;
-import com.finchuk.entities.User;
+import com.finchuk.dto.Role;
+import com.finchuk.dto.User;
+import com.finchuk.services.factory.ServiceFactory;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -10,10 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Optional;
 
 /**
- * Created by olexandr on 30.03.17.
+ * The filter checks permissions for user and request method using
+ * the SecurityContext constraints
+ * Replace ServletRequest and ServletResponse with a custom secure one
+ *
+ * @see SecurityContainer
+ * @see LoginServletWrapper
  */
 @WebFilter(urlPatterns = "/*")
 public class PathSecurityFilter implements Filter {
@@ -25,7 +30,8 @@ public class PathSecurityFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
-        HttpServletRequest httpServletRequest = new LoginServletWrapper((HttpServletRequest) servletRequest);
+        LoginServletWrapper httpServletRequest = new LoginServletWrapper((HttpServletRequest) servletRequest);
+        httpServletRequest.setService(ServiceFactory.getAuthService());
         String requestURI = getNormalURI(httpServletRequest,servletResponse);
         if(requestURI==null){
             return;

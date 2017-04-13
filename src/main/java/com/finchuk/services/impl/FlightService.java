@@ -3,10 +3,10 @@ package com.finchuk.services.impl;
 import com.finchuk.dao.FlightDao;
 import com.finchuk.dao.factory.JdbcDaoFactory;
 import com.finchuk.dao.jdbc.transaction.Transaction;
-import com.finchuk.entities.Flight;
-import com.finchuk.entities.Route;
-import com.finchuk.entities.Ticket;
-import com.finchuk.entities.TicketStatus;
+import com.finchuk.dto.Flight;
+import com.finchuk.dto.Route;
+import com.finchuk.dto.Ticket;
+import com.finchuk.dto.TicketStatus;
 import com.finchuk.services.AbstractEntityService;
 import com.finchuk.services.factory.ServiceFactory;
 
@@ -14,7 +14,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -53,7 +52,7 @@ public class FlightService extends AbstractEntityService<Flight, Long> {
         date = date.plusMinutes(timez);
         LocalDateTime dateNow = LocalDateTime.now(ZoneOffset.UTC);
         if (dateNow.isAfter(date)) {
-            return Collections.emptyList();
+            throw new IllegalArgumentException("past");
         }
         List<Flight> tickets = ((FlightDao) dao).getFlightsByParams(townFrom.toLowerCase(),townTo.toLowerCase(),date);
         tickets.forEach(e->loadTails(e));
@@ -81,5 +80,15 @@ public class FlightService extends AbstractEntityService<Flight, Long> {
                 .filter(e->e.getStatus()== TicketStatus.FREE)
                 .count();
 
+    }
+
+    public Long totalCount() {
+        return ((FlightDao) dao).totalCount();
+    }
+
+    public List<Flight> findWithOffset(Long count, Long from) {
+        List<Flight> flights = ((FlightDao) dao).findWithOffset(count, from);
+        flights.forEach(e -> loadTails(e));
+        return flights;
     }
 }

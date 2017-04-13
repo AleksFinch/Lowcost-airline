@@ -1,9 +1,9 @@
 package com.finchuk.services.impl;
 
-import com.finchuk.entities.Flight;
-import com.finchuk.entities.Ticket;
-import com.finchuk.entities.TicketStatus;
-import com.finchuk.entities.User;
+import com.finchuk.dto.Flight;
+import com.finchuk.dto.Ticket;
+import com.finchuk.dto.TicketStatus;
+import com.finchuk.dto.User;
 import com.finchuk.services.factory.ServiceFactory;
 
 import java.math.BigDecimal;

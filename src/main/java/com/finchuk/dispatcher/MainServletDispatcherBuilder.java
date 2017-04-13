@@ -7,7 +7,7 @@ import javax.servlet.*;
 import java.util.EnumSet;
 
 /**
- * Created by olexandr on 03.04.17.
+ * A more user friendly way of creating and registering a {@link MainServletDispatcher}
  */
 public class MainServletDispatcherBuilder {
 

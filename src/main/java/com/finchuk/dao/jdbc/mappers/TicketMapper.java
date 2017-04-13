@@ -1,6 +1,9 @@
 package com.finchuk.dao.jdbc.mappers;
 
-import com.finchuk.entities.*;
+import com.finchuk.dto.Flight;
+import com.finchuk.dto.Ticket;
+import com.finchuk.dto.TicketStatus;
+import com.finchuk.dto.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

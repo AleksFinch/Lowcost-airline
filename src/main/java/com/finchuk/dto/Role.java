@@ -1,4 +1,4 @@
-package com.finchuk.entities;
+package com.finchuk.dto;
 
 
 /**

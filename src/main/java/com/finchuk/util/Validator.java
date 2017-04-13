@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by root on 09.04.17.
+ * Contains static methods for validate request parameters
  */
 public class Validator {
 
@@ -162,6 +162,10 @@ public class Validator {
         String airportId = reqService.getString("airport_id");
         String country = reqService.getString("country");
         String town = reqService.getString("town");
+        reqService.putFlashParameter("airport_id", airportId);
+        reqService.putFlashParameter("country", country);
+        reqService.putFlashParameter("town", town);
+
         String result = validateName(airportId, "airport", 20);
         if (!result.isEmpty()) {
             return result;

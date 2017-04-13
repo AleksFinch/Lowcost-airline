@@ -1,7 +1,7 @@
 package com.finchuk.dao.jdbc.mappers;
 
-import com.finchuk.entities.Flight;
-import com.finchuk.entities.Route;
+import com.finchuk.dto.Flight;
+import com.finchuk.dto.Route;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

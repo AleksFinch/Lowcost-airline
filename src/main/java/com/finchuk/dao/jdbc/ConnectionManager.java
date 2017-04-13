@@ -12,7 +12,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * Created by olexandr on 26.03.17.
+ * ConnectionManager encapsulates a data source. The static methods
+ * allow initiate ConnectionManager from various sources
  */
 public class ConnectionManager {
     private static final Logger LOGGER = LogManager.getLogger(ConnectionManager.class);

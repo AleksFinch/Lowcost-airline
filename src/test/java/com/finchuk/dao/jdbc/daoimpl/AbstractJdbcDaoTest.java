@@ -1,7 +1,6 @@
 package com.finchuk.dao.jdbc.daoimpl;
 
 import com.finchuk.dao.Dao;
-import com.finchuk.entities.Airline;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;

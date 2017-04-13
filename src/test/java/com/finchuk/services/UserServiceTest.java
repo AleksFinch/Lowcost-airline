@@ -1,7 +1,5 @@
 package com.finchuk.services;
 
-import com.finchuk.entities.Ticket;
-import com.finchuk.services.impl.TicketService;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import testdb.DBInitializer;

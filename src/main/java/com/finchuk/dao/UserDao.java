@@ -1,7 +1,7 @@
 package com.finchuk.dao;
 
-import com.finchuk.entities.Role;
-import com.finchuk.entities.User;
+import com.finchuk.dto.Role;
+import com.finchuk.dto.User;
 
 /**
  * Created by olexandr on 25.03.17.

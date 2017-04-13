@@ -2,10 +2,8 @@ package com.finchuk.services.impl;
 
 import com.finchuk.dao.UserDao;
 import com.finchuk.dao.factory.JdbcDaoFactory;
-import com.finchuk.dao.jdbc.transaction.Transaction;
-import com.finchuk.entities.User;
+import com.finchuk.dto.User;
 import com.finchuk.services.AbstractEntityService;
-import com.finchuk.services.factory.ServiceFactory;
 
 /**
  * Created by olexandr on 29.03.17.

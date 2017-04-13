@@ -1,7 +1,6 @@
 package com.finchuk.services;
 
-import com.finchuk.entities.User;
-
+import com.finchuk.dto.User;
 
 import javax.servlet.http.HttpServletRequest;
 

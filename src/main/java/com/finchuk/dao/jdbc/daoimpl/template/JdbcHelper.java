@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by olexandr on 26.03.17.
+ * This class encapsulate a lot of boilerplate codes for JDBC
+ * It also contains error handling and logging code
  */
 public class JdbcHelper {
     private static final Logger LOGGER = LogManager.getLogger(JdbcHelper.class);

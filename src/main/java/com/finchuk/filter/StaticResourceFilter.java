@@ -6,6 +6,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Prevent handling static resources by
+ * {@link com.finchuk.dispatcher.MainServletDispatcher }
+ */
 public class StaticResourceFilter implements Filter {
     private String resourcePath = "/resources/";
 

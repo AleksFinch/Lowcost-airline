@@ -1,19 +1,25 @@
 package com.finchuk.controller;
 
 import com.finchuk.dispatcher.MainServletDispatcher;
-import com.finchuk.entities.User;
+import com.finchuk.dto.User;
 import com.finchuk.security.HTTPMethod;
-import com.finchuk.security.LoginServletWrapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 /**
- * Created by olexandr on 31.03.17.
+ * A wrapper class that contains all the necessary information for
+ * processing a request by {@link Controller} along with some
+ * helper methods
+ *
+ * Note that {@link #redirect(String)} and {@link #render(String)} has special treatment
+ * by the {@link com.finchuk.dispatcher.MainServletDispatcher}
  */
 public class RequestService {
     private static final Logger LOGGER = LogManager.getLogger(RequestService.class);
@@ -91,6 +97,56 @@ public class RequestService {
         } catch (IOException e) {
             LOGGER.error("",e);
             throw new IllegalArgumentException(e);
+        }
+    }
+
+    public void putFlashParameter(String param, Object o) {
+        Map<String, Object> flash = (Map<String, Object>) httpServletRequest.getSession()
+                .getAttribute(MainServletDispatcher.FLASH_SESSION_KEY);
+        if (flash == null) {
+            flash = new HashMap<>();
+        }
+
+        flash.put(param, o);
+
+        httpServletRequest.getSession().setAttribute(MainServletDispatcher.FLASH_SESSION_KEY, flash);
+    }
+
+    public Object getFlashParameter(String param) {
+        Map<String, Object> flash = (Map<String, Object>) httpServletRequest.getSession()
+                .getAttribute(MainServletDispatcher.FLASH_SESSION_KEY);
+        if (flash == null) {
+            return null;
+        }
+
+        return flash.get(param);
+    }
+
+    public void clearFlash() {
+        Map<String, Object> flash =
+                (Map<String, Object>) httpServletRequest.getSession().getAttribute(MainServletDispatcher.FLASH_SESSION_KEY);
+
+        if (flash == null) {
+            flash = new HashMap<>();
+        }
+
+        flash.clear();
+
+        httpServletRequest.getSession().setAttribute(MainServletDispatcher.FLASH_SESSION_KEY, flash);
+    }
+
+    public void setAtributesFromFlash(String... names) {
+        for (String name :
+                names) {
+            Object obj = getFlashParameter(name);
+            setPageAttribute(name, obj);
+        }
+    }
+
+    public void setFlashParamsEmpty(String... names) {
+        for (String name :
+                names) {
+            putFlashParameter(name, null);
         }
     }
 }

@@ -2,9 +2,9 @@ package com.finchuk.services.impl;
 
 import com.finchuk.dao.TicketDao;
 import com.finchuk.dao.factory.JdbcDaoFactory;
-import com.finchuk.entities.Flight;
-import com.finchuk.entities.Ticket;
-import com.finchuk.entities.User;
+import com.finchuk.dto.Flight;
+import com.finchuk.dto.Ticket;
+import com.finchuk.dto.User;
 import com.finchuk.services.AbstractEntityService;
 import com.finchuk.services.factory.ServiceFactory;
 

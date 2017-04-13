@@ -8,7 +8,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 /**
- * Created by olexandr on 03.04.17.
+ * Entry point of the web application
  */
 @WebListener
 public class AppListenner implements ServletContextListener {
@@ -19,7 +19,7 @@ public class AppListenner implements ServletContextListener {
         //TODO: add comments
         //TODO: own tag
         //TODO: free ticket if not bough
-        //TODO: fix entities
+        //TODO: fix dto
         sce.getServletContext().setAttribute("webApplication", app);
         app.setServletContext(sce.getServletContext());
         app.init();

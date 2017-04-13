@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by olexandr on 25.03.17.
+ * An interface that represents a generic data access object
+ * @param <T>  type of the target entity
+ * @param <PK> primary key by which the target entity can be retrieved
  */
 public interface Dao<T, PK extends Serializable> {
     PK add(T t);

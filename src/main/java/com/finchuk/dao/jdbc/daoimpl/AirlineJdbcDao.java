@@ -4,9 +4,10 @@ import com.finchuk.dao.AirlineDao;
 import com.finchuk.dao.jdbc.ConnectionManager;
 import com.finchuk.dao.jdbc.daoimpl.template.JdbcHelper;
 import com.finchuk.dao.jdbc.mappers.AirlineMapper;
-import com.finchuk.entities.Airline;
+import com.finchuk.dto.Airline;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by olexandr on 26.03.17.
@@ -26,7 +27,8 @@ public class AirlineJdbcDao implements AirlineDao {
                         "(company_name,img_path)" +
                         "VALUES(?,?)",
                 airline.getCompanyName(),
-                airline.getImgPath().toString());
+                Optional.ofNullable(airline.getImgPath())
+                        .map(e -> e.toString()).orElse(null));
     }
 
     @Override
@@ -42,7 +44,8 @@ public class AirlineJdbcDao implements AirlineDao {
                         "img_path = ? " +
                         "WHERE id = ?",
                 airline.getCompanyName(),
-                airline.getImgPath(),
+                Optional.ofNullable(airline.getImgPath())
+                        .map(e -> e.toString()).orElse(null),
                 airline.getCompanyId());
 
     }

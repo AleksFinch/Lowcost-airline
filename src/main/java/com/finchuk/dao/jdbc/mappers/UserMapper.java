@@ -1,7 +1,6 @@
 package com.finchuk.dao.jdbc.mappers;
 
-import com.finchuk.entities.Role;
-import com.finchuk.entities.User;
+import com.finchuk.dto.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

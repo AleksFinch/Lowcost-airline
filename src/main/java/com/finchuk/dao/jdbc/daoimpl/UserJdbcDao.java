@@ -4,8 +4,8 @@ import com.finchuk.dao.UserDao;
 import com.finchuk.dao.jdbc.ConnectionManager;
 import com.finchuk.dao.jdbc.daoimpl.template.JdbcHelper;
 import com.finchuk.dao.jdbc.mappers.UserMapper;
-import com.finchuk.entities.Role;
-import com.finchuk.entities.User;
+import com.finchuk.dto.Role;
+import com.finchuk.dto.User;
 import org.apache.logging.log4j.LogManager;
 
 import java.sql.SQLException;

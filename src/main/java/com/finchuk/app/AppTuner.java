@@ -7,13 +7,13 @@ import com.finchuk.controller.admin.FlightsManagmentController;
 import com.finchuk.controller.user.*;
 import com.finchuk.dao.jdbc.ConnectionManager;
 import com.finchuk.dispatcher.MainServletDispatcherBuilder;
-import com.finchuk.entities.Role;
+import com.finchuk.dto.Role;
 import com.finchuk.security.SecurityContainer;
 
 import javax.servlet.ServletContext;
-
 /**
- * Created by olexandr on 03.04.17.
+ * The web application tuner.
+ * It configures the application(connection manager, service locator, security, controllers)
  */
 
 public class AppTuner {

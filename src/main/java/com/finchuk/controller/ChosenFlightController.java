@@ -1,6 +1,6 @@
 package com.finchuk.controller;
 
-import com.finchuk.entities.Flight;
+import com.finchuk.dto.Flight;
 import com.finchuk.services.factory.ServiceFactory;
 import com.finchuk.services.impl.FlightService;
 import com.finchuk.util.Validator;

@@ -4,9 +4,9 @@ import com.finchuk.dao.TicketDao;
 import com.finchuk.dao.jdbc.ConnectionManager;
 import com.finchuk.dao.jdbc.daoimpl.template.JdbcHelper;
 import com.finchuk.dao.jdbc.mappers.TicketMapper;
-import com.finchuk.entities.Flight;
-import com.finchuk.entities.Ticket;
-import com.finchuk.entities.User;
+import com.finchuk.dto.Flight;
+import com.finchuk.dto.Ticket;
+import com.finchuk.dto.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -93,4 +93,6 @@ public class TicketJdbcDao implements TicketDao {
         return helper.findObjects("SELECT * FROM ticket WHERE flight = ? "
                 , TicketMapper::map, flight.getFlightId());
     }
+
+
 }

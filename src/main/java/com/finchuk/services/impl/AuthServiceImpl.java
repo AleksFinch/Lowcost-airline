@@ -1,17 +1,15 @@
 package com.finchuk.services.impl;
 
-import com.finchuk.dao.jdbc.transaction.Transaction;
-import com.finchuk.entities.Role;
-import com.finchuk.entities.User;
+import com.finchuk.dto.Role;
+import com.finchuk.dto.User;
 import com.finchuk.services.AuthService;
 import com.finchuk.services.factory.ServiceFactory;
 import com.finchuk.util.PasswordEncoder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.sql.Connection;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by olexandr on 30.03.17.

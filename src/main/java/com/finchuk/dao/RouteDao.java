@@ -1,6 +1,6 @@
 package com.finchuk.dao;
 
-import com.finchuk.entities.Route;
+import com.finchuk.dto.Route;
 
 /**
  * Created by olexandr on 25.03.17.

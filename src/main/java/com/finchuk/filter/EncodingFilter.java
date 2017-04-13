@@ -5,6 +5,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
 import java.io.IOException;
 
+/**
+ * EncodingFilter add cyrillic letters support for responses
+ */
 @WebFilter(urlPatterns = "/*", initParams = {
         @WebInitParam(name = "encoding", value = "UTF-8", description = "Encoding param")
 })

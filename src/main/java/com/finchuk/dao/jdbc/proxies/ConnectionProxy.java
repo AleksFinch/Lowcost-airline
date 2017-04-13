@@ -6,7 +6,7 @@ import java.util.Properties;
 import java.util.concurrent.Executor;
 
 /**
- * Created by olexandr on 26.3.17.
+ * This class allows transactions to span multiple methods
  */
 public class ConnectionProxy implements Connection {
     private Connection connection;
