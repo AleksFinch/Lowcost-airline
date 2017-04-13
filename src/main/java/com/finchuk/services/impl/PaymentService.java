@@ -8,8 +8,8 @@ import com.finchuk.services.factory.ServiceFactory;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.Clock;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 
 /**
@@ -19,10 +19,24 @@ public class PaymentService {
 
     private TicketService ticketService ;
     private FlightService flightService ;
+    Clock clock;
 
     public void init(){
         flightService = ServiceFactory.getFlightService();
         ticketService = ServiceFactory.getTicketService();
+        clock = Clock.systemUTC();
+    }
+
+    public void setTicketService(TicketService ticketService) {
+        this.ticketService = ticketService;
+    }
+
+    public void setFlightService(FlightService flightService) {
+        this.flightService = flightService;
+    }
+
+    public void setClock(Clock clock) {
+        this.clock = clock;
     }
 
     public void payFor(Ticket t){
@@ -51,7 +65,7 @@ public class PaymentService {
     public synchronized Ticket reserveTicket(Long flightId, boolean withBagg, boolean privilege, User user){
         Flight flight = flightService.find(flightId);
 
-        LocalDateTime currTime = LocalDateTime.now(ZoneOffset.UTC);
+        LocalDateTime currTime = LocalDateTime.now(clock);
         LocalDateTime depTime = flight.getDepartureTime();
         if(currTime.isAfter(depTime)){
             return null;

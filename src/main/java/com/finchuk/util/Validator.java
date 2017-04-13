@@ -42,6 +42,7 @@ public class Validator {
     }
 
 
+
     public static String validateUserLogin(RequestService reqService) {
         String username = reqService.getString("username");
         String password = reqService.getString("password");
@@ -84,6 +85,22 @@ public class Validator {
         return "";
     }
 
+    public static String validateUserUpdate(RequestService reqService) {
+        String firstname = reqService.getString("firstname");
+        String lastname = reqService.getString("lastname");
+
+        String result = validateName(firstname, "firstname", 64);
+        if (!result.isEmpty()) {
+            return result;
+        }
+        result = validateName(lastname, "lastname", 64);
+        if (!result.isEmpty()) {
+            return result;
+        }
+
+        return "";
+    }
+
     public static Long tryParseLong(String value) {
         if (value==null||value.isEmpty()) {
             return null;
@@ -99,6 +116,9 @@ public class Validator {
 
 
     private static String validateName(String value, String name, int maxSize) {
+        if (value != null) {
+            value = value.trim();
+        }
         if (value == null || value.isEmpty()) {
             return "invalid."+name + ".empty";
         }

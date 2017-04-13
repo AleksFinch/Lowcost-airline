@@ -49,6 +49,7 @@ public class AppTuner {
                 .addPathMap("/lang", new LocaleController())
                 .addPathMap("/user/buy_ticket", new BuyingTicketController())
                 .addPathMap("/user/payment", new PaymentController())
+                .addPathMap("/user/edit_pers_info", new UpdateNameController())
                 .addPathMap("/user/personal_tickets", new PersonalTicketsController())
                 .addPathMap("/user/unpaid_tickets", new UnpaidTicketsController())
                 .addPathMap("/user/personal_cabinet", new PersonalCabinetController())
